@@ -18,16 +18,15 @@ class PartenairesController extends Controller
 
     public function create(Request $request)
     {
-//        $partenaires = Http::withToken(session('key'))->post(env('API_PATH').'/teleprospecteur/create', [
-//            'num' => $request->num,
-//            'nom' => $request->nom,
-//            'prenom' => $request->prenom,
-//            'numEntreprise' => $request->numEntreprise,
-//            'email' => $request->email,
-//            'tel' => $request->tel,
-//        ]);
-//        return redirect(route('partenaire.index'))->with('success', 'Client correctement ajouté');
-            return view('partenaire.create');
+        $partenaires = Http::withToken(session('key'))->post(env('API_PATH').'/teleprospecteur/create', [
+            'num' => $request->num,
+            'nom' => $request->nom,
+            'prenom' => $request->prenom,
+            'numEntreprise' => $request->numEntreprise,
+            'email' => $request->email,
+            'tel' => $request->tel,
+        ]);
+        return redirect(route('partenaire.index'))->with('success', 'Client correctement ajouté');
     }
 
     public function update(Request $request)

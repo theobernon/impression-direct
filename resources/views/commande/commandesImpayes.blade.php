@@ -13,7 +13,7 @@
 
     <p>Ici s'afficherons les commandes qui n'ont pas été validé</p><br><br>
     <div style="overflow-x: auto;">
-        <table class="fl-table">
+        <table class="table table-bordered table-striped datatable">
             <thead>
             <tr>
                 <th>Num Commande</th>
@@ -32,84 +32,48 @@
             </thead>
             <tbody>
             @foreach($commandes as $commande)
-                @if ($commande->facturee ===0)
+                @if($commande->commande != null)
                     <tr>
-                        <td>{{$commande->noCommande}}</td>
-                        <td>{{$commande->entCli}}</td>
-                        <td>{{$commande->pxttc}}</td>
-                        <td>{{$commande->mpaiement}}</td>
-                        <td>{{$commande->dateCommande}}</td>
+                        <td>{{$commande->commande->noCommande}}</td>
+                        <td>{{$commande->commande->entCli}}</td>
+                        <td>{{$commande->commande->pxttc}}</td>
+                        <td>{{$commande->commande->mpaiement}}</td>
+                        <td>{{$commande->commande->dateCommande}}</td>
                         <td>
-                            <a href="">
-                                @if ($commande->valClient === 0)
-                                    <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @else
-                                    <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @endif
-                            </a>
+                            <x-check :value="$commande->commande->valClient" url=""></x-check>
                         </td>
                         <td>
-                            <a href="">
-                                @if ($commande->validee === 0)
-                                    <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @else
-                                    <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @endif
-                            </a>
+                            <x-check :value="$commande->commande->validee" url=""></x-check>
                         </td>
                         <td>
-                            <a href="">
-                                <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                    @if ($commande->expediee === 0)
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                </svg>
-                                @else
-                                    <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @endif
-                            </a>
+                            <x-check :value="$commande->commande->expediee" url=""></x-check>
                         </td>
-                        <td>{{$commande->dateExpd}}</td>
+                        <td>{{$commande->commande->dateExpd}}</td>
                         <td>
-                            <a href="">
-                                @if ($commande->facturee === 0)
-                                    <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @else
-                                    <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @endif
-                            </a>
+                            <x-check :value="$commande->commande->facturee" url=""></x-check>
                         </td>
-                        <td>{{$commande->nomPdf}}</td>
+                        <td>{{$commande->commande->nomPdf}}</td>
                         <td>
-                            <a href="">
-                                @if ($commande->envoyee === 0)
-                                    <svg style="color: red" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @else
-                                    <svg style="color: green" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
-                                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-                                    </svg>
-                                @endif
-                            </a>
+                            <x-check :value="$commande->commande->envoyee" url=""></x-check>
                         </td>
                     </tr>
-                @endif
+                    @endif
             @endforeach
             </tbody>
         </table>
     </div>
 @stop
+
+@section('js')
+    @parent
+    <script>
+        $('.datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
+            },
+            responsive: true,
+            pageLength: 10,
+            lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
+        });
+    </script>
+@endsection

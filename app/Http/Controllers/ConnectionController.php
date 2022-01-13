@@ -25,8 +25,7 @@ class ConnectionController extends Controller
             'password' => $request->password]);
 
         /** TEST CONNECTION */
-//        dd($login['id']);
-//        dd($login->getStatusCode());
+        //dd($login['id']);
         if ($login->getStatusCode() == 200) {
             session_start();
             session(['key' => $login['token'], 'id' => $login['id']]);

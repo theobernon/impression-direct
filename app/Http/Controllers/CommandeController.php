@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -11,18 +12,9 @@ class CommandeController extends Controller
 {
     public function index()
     {
-
         //dd(json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/')));
-
-
-        return view('commande.commandes',[
-
-        /** GET commandes FROM API */
-        /** @var Response $commandes */
-        'commandes' => json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'))
-
-
-         ]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        return view('commande.commandes',['commandes' => $commandes]);
     }
 
     public function delete(Request $request)
@@ -80,6 +72,12 @@ class CommandeController extends Controller
         return view('commande.commandesAExpedier', ['commandes' => $commandes]);
     }
 
+    public function validerClient(Request $request)
+    {
+        $commandes = json_decode(Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/'.$request->noCommande.'/validerClient'));
+        return redirect(route('commande.index'))->with('success', 'Client validé');
+    }
+
     public function commandeAFacturer()
     {
         /** GET commandes FROM API */
@@ -102,7 +100,7 @@ class CommandeController extends Controller
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aPayer'));
         return view('commande.commandesImpayes', ['commandes' => $commandes]);
     }
 
@@ -128,18 +126,20 @@ class CommandeController extends Controller
         /** @var Response $clients */
         //dd($request->id_teleprospecteur);
         $commandes = Http::withToken(session('key'))->post(env('API_PATH').'/commandes/create',[
-            'dateCommande' => $request->dateCommande,
+            'dateExpd' => $request->dateExpd,
             'refClient' => $request->refClient,
             'entCli' => $request->entCli,
-            'adCom1' => $request->adCom1,
-            'adCom2' => $request->adCom2,
-            'adCom3' => $request->adCom3,
+            'adrSuivi' => $request->adrSuivi,
+            'ad1' => $request->ad1,
+            'ad2' => $request->ad2,
+            'ad3' => $request->ad3,
             'tel' => $request->tel,
             'mailCom' => $request->mailCom,
             'livCli' => $request->livCli,
-            'livAdrCom1' => $request->livAdrCom1,
-            'livAdrCom2' => $request->livAdrCom2,
-            'livAdrCom3' => $request->livAdrCom3,
+            'livAd1' => $request->livAd1,
+            'livAd2' => $request->livAd2,
+            'livAd3' => $request->livAd3,
+            'noColissimo' => $request->noColissimo,
             'produitsCom' => $request->produitsCom,
             'moyenPaiement' => $request->moyenPaiement,
             'reduction' => $request->reduction,
@@ -157,7 +157,7 @@ class CommandeController extends Controller
             'id_commission' => $request->id_commission
         ]);
         //dd($request->teleprospecteur);
-        return redirect(route('commande.index'))->with('success','Commande correctement ajoutée');
+        return redirect(route('commande.index'))->with('success', 'Commande correctement ajouté');
     }
 
 

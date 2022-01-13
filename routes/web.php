@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\CommandeController;
@@ -25,14 +24,15 @@ use App\Http\Controllers\PDFController;
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 */
+//Auth::routes();
 
-$path = 'http://127.0.0.1:8001/api';
+
+$path = 'http://localhost:8001/api';
 
 Route::get('/', [ConnectionController::class, 'index'])->name('connection');
 Route::get('/connection', [ConnectionController::class, 'index'])->name('connection');
@@ -66,6 +66,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/commandesFacturees', [CommandeController::class, 'commandesFacturees'])->name('commande.commandesFacturees');
     Route::get('/commandes/detail/{noCommande}', [CommandeController::class, 'show'])->name('commandes.detail');
     Route::get('mail/mailFacture', [MailFactureController::class, 'mail']);
+
+    Route::get('/commandes/{noCommande}/validerClient',[CommandeController::class, 'validerClient'])->name('commande.validerClient');
 
 #---- Routes commandes ----#
 

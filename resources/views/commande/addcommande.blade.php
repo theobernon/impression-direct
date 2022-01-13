@@ -3,165 +3,75 @@
 @section('title', 'ImpressionDirect')
 
 @section('content_header')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.38.0/css/tempusdominus-bootstrap-4.min.css" crossorigin="anonymous" />
+        <h1 class="m-0 text-dark">Nouvelle commande</h1><br/>
+        <x-buttons.back></x-buttons.back>
+@stop
 
-    <head>
-        <link href="{{asset('style.css')}}" rel="stylesheet">
-
-        <!-- JS SCRIPT-->
-        <script src="https://unpkg.com/jquery@2.2.4/dist/jquery.js"></script>
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-        <link href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"/>
-    </head>
-
-    <body>
-    <div style="display: flex">
+@section('content')
         <form method="POST" action="{{ route('commande.create')}}">
             @csrf
-            <a style="margin-right: auto;border-color: red" href="{{url()->previous()}}" class="btn">RETOUR</a>
-            <div>
-                <label>Saisissez la date de la commande :</label>
-                <input type="date" name="dateCommande" id="dateCommande" value="{{date('Y-m-d')}}" onFocus="this.value='';">
+            <div class="d-flex">
+                <x-form.card title="Information commande" class="w-100">
+                    <x-form.input-search label="Référence du client" :datas="$clients" arg="refClient" name="refClient">
+                    </x-form.input-search>
+                    <x-form.input-search label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
+                    </x-form.input-search>
+                    <x-form.input label="Date d'expédition" value="" name="dateExpd" type="date" step="" onchange=""></x-form.input>
+                    <x-form.card-header title="Adresse de facturation"></x-form.card-header>
+                    <x-form.input label="Nom" value="" name="entCli" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Rue" value="" name="ad1" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Code Postal" value="" name="ad2" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Ville" value="" name="ad3" type="" step="" onchange=""></x-form.input>
+                    <x-form.card-header title="Adresse de Livraison"></x-form.card-header>
+                    <x-form.input label="Nom" value="" name="livCli" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Rue" value="" name="livAd1" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Code Postal" value="" name="livAd2" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Ville" value="" name="livAd3" type="" step="" onchange=""></x-form.input>
+                    <x-form.card-header title="Suivi"></x-form.card-header>
+                    <x-form.input label="N° Colis" value="" name="noColissimo" type="" step="" onchange=""></x-form.input>
+                    <x-form.input label="Lien de suivi" value="" name="adrSuivi" type="" step="" onchange=""></x-form.input>
+                </x-form.card>
             </div>
-            <div>
-                <label>Entrez la réference client :</label>
-                <input type="text" name="refClient" list="listClient" required>
-                <datalist id="listClient">
-                @foreach ($clients as $client)
-                    <option value="{{$client->refClient}}" onFocus="this.value='';">{{$client->refClient}}</option>
-                @endforeach
-                </datalist>
-            </div>
-            <div>
-                <label>Saisissez l'entreprise du client:</label>
-                <input type="text" name="entCli" id="entCli" required>
-                <label>Saisissez l'adresse du client :</label>
-                <input type="text" name="adCom1" id=adCom1" required>
-            </div>
-            <div>
-                <label>Saisissez le code postal du client :</label>
-                <input type="text" name="adCom2" id="adCom2" required>
-                <label>Saisissez la ville du client :</label>
-                <input type="text" name="adCom3" id="adCom3" required>
-            </div>
-            <div>
-                <label>Saisissez le téléphone associé à la commande :</label>
-                <input type="text" name="tel" id="tel" required>
-                <label>Saisissez le mail associé à la commande :</label>
-                <input type="text" name="mailCom" id="mailCom" required>
-            </div>
-            <br>
-            <div>
-                <label>Saisissez le nom de livraison de la commande :</label>
-                <input type="text" name="livCli" id="livCli" required>
-            </div>
-            <div>
-                <label>Saisissez l'adresse de livraison de la commande :</label>
-                <input type="text" name="livAdrCom1" id="livAdrCom1" required>
-            </div>
-            <div>
-                <label>Saisissez le code postal de livraison de la commande :</label>
-                <input type="text" name="livAdrCom2" id="livAdrCom2" required>
-            </div>
-            <div>
-                <label>Saisissez la ville de livraison de la commande :</label>
-                <input type="text" name="livAdrCom3" id="livAdrCom3" required>
-            </div>
-            <div>
-                <label>Saisissez le produit de la commande :</label>
-                <input type="text" name="produitsCom" id="produitsCom" required>
-            </div>
-            <div>
-                <label>Saisissez la réduction de la commande :</label>
-                <input type="number" step="any" name="reduction" id="reduction">
-            </div>
-            <div>
-                <label>Saisissez le moyen de paiement de la commande :</label>
-                <select id="moyenPaiement" name="moyenPaiement" required>
-                    <option>Virement Bancaire</option>
-                    <option>Carte Bancaire</option>
-                    <option>Chèque</option>
-                    <option>Autre</option>
-                </select>
-            </div>
-            <div>
-                <label>Saisissez le prix de la commande :</label>
-                <input type="text" name="pxttc" id="pxttc" required>
-            </div>
-            <div>
-                <label>BAT de la commande :</label>
-                <select name="BAT" id="BAT">
-                    <option>NON</option>
-                    <option>OUI</option>
-                </select>
-            </div>
-            <div>
-                <label>Saisissez la date d'éxpedition de la commande :</label>
-                <input type="date" name="dateExpedition" id="dateExpedition">
-            </div>
-            <div>
-                <label>Saisissez le lien de suivi de la commande :</label>
-                <input type="text" name="lienSuivi" id="lienSuivi" required>
-            </div>
-            <div>
-                <label>Saisissez le moment de paiement de la commande :</label>
-                <input type="text" name="momentPaiement" id="momentPaiement" value="commande" required>
-            </div>
-            <div>
-                <label>Saisissez un commentaire pour la commande :</label>
-                <input type="text" name="commentaire" id="commentaire">
-            </div>
-            <div>
-                <label>Saisissez le transporteur de la commande :</label>
-                <select id="transporteurClient" name="transporteurClient" required>
-                    @foreach ($fournisseurs as $transporteur)
-                        <option value="{{$transporteur->appellation}}" onFocus="this.value='';">{{$transporteur->appellation}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div>
-                <label>Saisissez la référence du transporteur :</label>
-                <select type="text" name="refTransporteurs" id="refTransporteurs">
-                    @foreach ($fournisseurs as $transporteur)
-                        <option value="{{$transporteur->reference}}" onFocus="this.value='';">{{$transporteur->appellation}}  référence: {{$transporteur->reference}}</option>
-                    @endforeach
-                        <option value="0">Aucun</option>
-                </select>
-            </div>
-            <div>
-                <label>Expertise de la commande :</label>
-                <select name="expertiseCommande" id="expertiseCommande">
-                    <option>OUI</option>
-                    <option>NON</option>
-                </select>
-            </div>
-            <div>
-                <label>Saisissez le prix du transporteur :</label>
-                <input type="text" name="pxTransporteur" id="pxTransporteur">
-            </div>
-            <div>
-                <label>Saisissez le numéro de devis associé à la commande :</label>
-                <input type="number" name="noDevisCommande" id="noDevisCommande">
-            </div>
-
-            <div>
-                <label>Saisissez la commission de la commande :</label>
-                <select name="id_commission" id="id_commission">
-                    @foreach($commissions as $com)
-                        <option value="{{$com->id}}">{{$com->taux}} %</option>
-                    @endforeach
-                </select>
-            </div>
-
+            <x-form.card title="Facture/Paiement" class="">
+                <x-form.select name="moyenPaiement" label="Moyen de Paiement" :datas="['Virement Bancaire','Carte Bancaire','Chèque','PayPal','Prélèvement','Autre']"></x-form.select>
+                <x-form.select name="momentPaiement" label="Moment du Paiement" :datas="['Livraison','Commande']"></x-form.select>
+                <x-form.card-header title="Options"></x-form.card-header>
+                <x-form.select name="BAT" label="BAT" :datas="['NON','OUI']"></x-form.select>
+                <x-form.select name="expertiseCommande" label="Expertise" :datas="['NON','OUI']"></x-form.select>
+                <x-form.card-header title="Prix"></x-form.card-header>
+                <div class="form-group">
+                    <div class="d-flex justify-content-between row-cols-4">
+                    <x-form.input label="Prix des produits" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    <x-form.input label="Prix des options" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    <x-form.input label="Prix du transport" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    </div>
+                    <div class="d-flex justify-content-between row-cols-4">
+                    <x-form.input label="Réduction" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    <x-form.input label="Prix total HT" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    <x-form.input label="TVA (20%)" value="" name="" type="number" step="" onchange=""></x-form.input>
+                    </div>
+                    <div class="w-25">
+                    <x-form.input label="Prix TTC" value="" name="" type="" step="" onchange=""></x-form.input>
+                    </div>
+                    <x-form.input-commission label="Commission de la commande" name="commission_id" :datas="$commissions"></x-form.input-commission>
+                </div>
+            </x-form.card>
                 <button style="border: none" type="submit">
                     <a style="margin-right: auto;border-color: red" class="btn">AJOUTER LA COMMANDE</a>
                 </button>
         </form>
     </div>
-    <br>
-    </body>
-<script>
-
-</script>
 @stop
 
-@section('content')
+@section('js')
+    @parent
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        })
+    </script>
+@endsection
