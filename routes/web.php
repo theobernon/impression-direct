@@ -49,7 +49,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes', [CommandeController::class, 'index'])->name('commande.index');
     Route::get('commande/{noCommande}/delete',[CommandeController::class,'delete'])->name('commande.delete');
     Route::delete('commande/{noCommande}/destroy', [CommandeController::class, 'destroy'])->name('commande.destroy');
-    Route::get('/commandes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
+    Route::get('/comm andes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
     Route::get('/commandes/formulaire',[CommandeController::class,'showadd'])->name('commande.ajouter');
     Route::post('/commandes/ajouter', [CommandeController::class, 'create'])->name('commande.create');
     Route::get('/commandes/facture/{noCommande}',[CommandeController::class,'showFacture'])->name('commande.facture');
@@ -78,7 +78,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/client', [ClientController::class, 'index'])->name('client.index');
     Route::post('/client/destroy/{refClient}', [ClientController::class, 'delete'])->name('client.delete');
     Route::get('/client/detail/{refClient}', [ClientController::class, 'show'])->name('client.detail');
-    Route::get('/client/edit/{refClient}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/client/edit/{refClient}', [ClientController::class, 'edit'])->name('client.edit');
     Route::get('/client/formulaire',[ClientController::class,'showadd'])->name('client.ajouter');
     Route::post('/client/ajouter', [ClientController::class, 'create'])->name('client.create');
     Route::post('/client/store', [ClientController::class, 'store'])->name('client.store');

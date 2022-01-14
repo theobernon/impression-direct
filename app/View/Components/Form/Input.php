@@ -12,6 +12,8 @@ class Input extends Component
     public $name;
     public $type;
     public $step;
+    public $required;
+    public $readonly;
     public $onchange;
 
     /**
@@ -19,7 +21,7 @@ class Input extends Component
      *
      * @return void
      */
-    public function __construct($label,$value,$name,$type,$step,$onchange)
+    public function __construct($label,$value,$name,$type,$step,$onchange,$required,$readonly)
     {
         $this->label=$label;
         $this->value=$value;
@@ -27,6 +29,8 @@ class Input extends Component
         $this->type = $type;
         $this->step = $step;
         $this->onchange = $onchange;
+        $this->required = $required;
+        $this->readonly = $readonly;
     }
 
     /**

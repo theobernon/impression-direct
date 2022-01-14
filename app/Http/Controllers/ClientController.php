@@ -119,7 +119,7 @@ class ClientController extends Controller
 
     public function update(Request $request)
     {
-        $client = Http::withToken(session('key'))->post(env('API_PATH') . '/client/edit/' . $request->refClient, [
+        Http::withToken(session('key'))->post(env('API_PATH') . '/client/edit/' . $request->refClient, [
             'refClient' => $request->refClient,
             'emailClient' => $request->emailClient,
             'typeClient' => '1',

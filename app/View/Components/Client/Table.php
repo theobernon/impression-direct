@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class Table extends Component
 {
     public $clients;
+    public $action;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(Collection $clients)
+    public function __construct($clients)
     {
         $this->clients = $clients;
+        $this->action = route('client.create');
     }
 
     /**
