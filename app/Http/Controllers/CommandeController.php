@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commandes;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
@@ -18,6 +19,12 @@ class CommandeController extends Controller
     }
 
     public function delete(Request $request)
+    {
+        $commande = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/' . $request->noCommande));
+        return view('commande.delete',['commande'=>$commande]);
+    }
+
+    public function destroy(Request $request)
     {
         /** PATCH DATA FOR STORE VISIT */
         /** @var Response $delete */
@@ -45,7 +52,7 @@ class CommandeController extends Controller
         return view('commande.detailCommandes', ['commande'=>$commande]);
     }
 
-    public function clientValider()
+    public function clientAValider()
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
@@ -76,6 +83,12 @@ class CommandeController extends Controller
     {
         $commandes = json_decode(Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/'.$request->noCommande.'/validerClient'));
         return redirect(route('commande.index'))->with('success', 'Client validé');
+    }
+
+    public function validerCommande(Request $request)
+    {
+        $commandes = json_decode(Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/'.$request->noCommande.'/validerCommande'));
+        return redirect(route('commande.index'))->with('success', 'Commande validé');
     }
 
     public function commandeAFacturer()

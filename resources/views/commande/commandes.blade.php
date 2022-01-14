@@ -3,6 +3,7 @@
 @section('title', 'ImpressionDirect')
 
 @section('content_header')
+    @include('flash-message')
     <h1 class="m-0 text-dark">Liste des commandes</h1>
 
     <p>ici s'afficheront les 100 dernières commandes d'impression direct</p>
@@ -45,10 +46,10 @@
                     <x-check :value="$commande->valClient" url="{{route('commande.validerClient',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
-                    <x-check :value="$commande->validee" url=""></x-check>
+                    <x-check :value="$commande->validee" url="{{route('commande.valider',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
-                    <x-check :value="$commande->expediee" url=""></x-check>
+                    <x-check :value="$commande->expediee" url="{{route('commande.expedier',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
                     <x-commande.button-facture :value="$commande"></x-commande.button-facture>
@@ -63,7 +64,7 @@
                     <x-buttons.show id="{{$commande->noCommande}}" route="{{route('commandes.detail',$commande->noCommande)}}"></x-buttons.show>
                 </td>
                 <td>
-                    <x-buttons.delete id="{{$commande->noCommande}}" route="{{route('commande.delete',$commande->noCommande)}}"></x-buttons.delete>
+                    <x-buttons.delete route="{{route('commande.delete',['noCommande'=>$commande->noCommande])}}"></x-buttons.delete>
                 </td>
             </tr>
         @endforeach

@@ -47,7 +47,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 #---- Routes commandes ----#
 
     Route::get('/commandes', [CommandeController::class, 'index'])->name('commande.index');
-    Route::post('/commandes/destroy/{noCommande}', [CommandeController::class, 'delete'])->name('commande.delete');
+    Route::get('commande/{noCommande}/delete',[CommandeController::class,'delete'])->name('commande.delete');
+    Route::delete('commande/{noCommande}/destroy', [CommandeController::class, 'destroy'])->name('commande.destroy');
     Route::get('/commandes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
     Route::get('/commandes/formulaire',[CommandeController::class,'showadd'])->name('commande.ajouter');
     Route::post('/commandes/ajouter', [CommandeController::class, 'create'])->name('commande.create');
@@ -57,7 +58,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandesAEnvoyer', function () {
         return view('/commande/commandesAEnvoyer');
     });
-    Route::get('/commandes/commandesClient', [CommandeController::class, 'clientValider'])->name('commande.clientValider');
+    Route::get('/commandes/commandesClient', [CommandeController::class, 'clientAValider'])->name('commande.clientValider');
     Route::get('/commandes/commandesAValider', [CommandeController::class, 'commandesAValider'])->name('commande.commandeAValidee');
     Route::get('/commandes/commandesAExpedier', [CommandeController::class, 'commandeAExpedier'])->name('commande.commandeAExpedier');
     Route::get('/commandes/commandesAFacturer', [CommandeController::class, 'commandeAFacturer'])->name('commande.commandeAFacturer');
@@ -68,6 +69,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('mail/mailFacture', [MailFactureController::class, 'mail']);
 
     Route::get('/commandes/{noCommande}/validerClient',[CommandeController::class, 'validerClient'])->name('commande.validerClient');
+    Route::get('/commandes/{noCommande}/valider',[CommandeController::class, 'valider'])->name('commande.valider');
+    Route::get('/commandes/{noCommande}/expedier',[CommandeController::class, 'expedier'])->name('commande.expedier');
 
 #---- Routes commandes ----#
 

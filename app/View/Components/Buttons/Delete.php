@@ -6,16 +6,14 @@ use Illuminate\View\Component;
 
 class Delete extends Component
 {
-    public $id;
     public $route;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($id,$route)
+    public function __construct($route)
     {
-        $this->id = $id;
         $this->route = $route;
     }
 
