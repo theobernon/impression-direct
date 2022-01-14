@@ -46,10 +46,10 @@
                     <x-check :value="$commande->valClient" url="{{route('commande.validerClient',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
-                    <x-check :value="$commande->validee" url="{{route('commande.valider',['noCommande'=>$commande->noCommande])}}"></x-check>
+                    <x-check :value="$commande->validee" url="{{route('commande.validerCommande',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
-                    <x-check :value="$commande->expediee" url="{{route('commande.expedier',['noCommande'=>$commande->noCommande])}}"></x-check>
+                    <x-check :value="$commande->expediee" url="{{route('commande.expedierCommande',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
                     <x-commande.button-facture :value="$commande"></x-commande.button-facture>

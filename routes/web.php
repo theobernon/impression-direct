@@ -69,8 +69,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('mail/mailFacture', [MailFactureController::class, 'mail']);
 
     Route::get('/commandes/{noCommande}/validerClient',[CommandeController::class, 'validerClient'])->name('commande.validerClient');
-    Route::get('/commandes/{noCommande}/valider',[CommandeController::class, 'valider'])->name('commande.valider');
-    Route::get('/commandes/{noCommande}/expedier',[CommandeController::class, 'expedier'])->name('commande.expedier');
+    Route::get('/commandes/{noCommande}/validerCommande',[CommandeController::class, 'validerCommande'])->name('commande.validerCommande');
+    Route::get('/commandes/{noCommande}/expedierCommande',[CommandeController::class, 'expedierCommande'])->name('commande.expedierCommande');
 
 #---- Routes commandes ----#
 

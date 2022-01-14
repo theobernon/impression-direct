@@ -91,6 +91,12 @@ class CommandeController extends Controller
         return redirect(route('commande.index'))->with('success', 'Commande validé');
     }
 
+    public function expedierCommande(Request $request)
+    {
+        $commandes = json_decode(Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/'.$request->noCommande.'/expedierCommande'));
+        return redirect(route('commande.index'))->with('success', 'Commande validé');
+    }
+
     public function commandeAFacturer()
     {
         /** GET commandes FROM API */
