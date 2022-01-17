@@ -2,7 +2,7 @@
     <label>{{$label}}</label>
     <select class="form-control" name="{{$name}}">
         @foreach($datas as $data)
-            <option>{{$data}}</option>
+            <option {{($temp == $data) ? "SELECTED" : ""}}>{{$data}}</option>
         @endforeach
     </select>
 </div>

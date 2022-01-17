@@ -8,15 +8,17 @@ class Textarea extends Component
 {
     public $label;
     public $value;
+    public $name;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label,$value)
+    public function __construct($label,$value,$name)
     {
         $this->label = $label;
         $this->value = $value;
+        $this->name = $name;
     }
 
     /**

@@ -10,17 +10,19 @@ class InputSearch extends Component
     public $datas;
     public $arg;
     public $name;
+    public $temp;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($label,$datas,$arg,$name)
+    public function __construct($label,$datas,$arg,$name,$temp)
     {
         $this->label = $label;
         $this->datas = $datas;
         $this->arg = $arg;
         $this->name = $name;
+        $this->temp = $temp;
     }
 
     /**

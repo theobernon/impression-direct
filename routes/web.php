@@ -52,6 +52,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/comm andes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
     Route::get('/commandes/formulaire',[CommandeController::class,'showadd'])->name('commande.ajouter');
     Route::post('/commandes/ajouter', [CommandeController::class, 'create'])->name('commande.create');
+
     Route::get('/commandes/facture/{noCommande}',[CommandeController::class,'showFacture'])->name('commande.facture');
     Route::patch('/generefacture/{noCommande}',[CommandeController::class,'commandesGenereFacture'])->name('commande.add.facture');
 
@@ -66,6 +67,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/commandesImpayes', [CommandeController::class, 'commandeImpayes'])->name('commande.commandeImpayes');
     Route::get('/commandes/commandesFacturees', [CommandeController::class, 'commandesFacturees'])->name('commande.commandesFacturees');
     Route::get('/commandes/detail/{noCommande}', [CommandeController::class, 'show'])->name('commandes.detail');
+    Route::get('/commandes/{noCommande}/edit', [CommandeController::class, 'edit'])->name('commande.edit');
+    Route::post('/commandes/{noCommande}/update', [CommandeController::class, 'update'])->name('commande.update');
     Route::get('mail/mailFacture', [MailFactureController::class, 'mail']);
 
     Route::get('/commandes/{noCommande}/validerClient',[CommandeController::class, 'validerClient'])->name('commande.validerClient');

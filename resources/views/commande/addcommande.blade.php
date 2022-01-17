@@ -15,10 +15,11 @@
             @csrf
             <div class="d-flex">
                 <x-form.card title="Information commande" class="w-100">
-                    <x-form.input-search label="Référence du client" :datas="$clients" arg="refClient" name="refClient">
+                    <x-form.input-search temp="" label="Référence du client" :datas="$clients" arg="refClient" name="refClient">
                     </x-form.input-search>
-                    <x-form.input-search label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
+                    <x-form.input-search temp="" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
                     </x-form.input-search>
+                    <x-form.textarea label="Produit :" value="Produit.." name="product"></x-form.textarea>
                     <x-form.input label="Date d'expédition" id="" value="" name="dateExpd" type="date" step="" oninput="" readonly="" required="" ></x-form.input>
                     <x-form.card-header title="Adresse de facturation"></x-form.card-header>
                     <x-form.input label="Nom" id="" value="" name="entCli" type="" step="" oninput="" readonly="" required="" ></x-form.input>
@@ -36,25 +37,25 @@
                 </x-form.card>
             </div>
             <x-form.card title="Facture/Paiement" class="">
-                <x-form.select name="moyenPaiement" label="Moyen de Paiement" :datas="['Virement Bancaire','Carte Bancaire','Chèque','PayPal','Prélèvement','Autre']"></x-form.select>
-                <x-form.select name="momentPaiement" label="Moment du Paiement" :datas="['Livraison','Commande']"></x-form.select>
+                <x-form.select temp="" name="moyenPaiement" label="Moyen de Paiement" :datas="['Virement Bancaire','Carte Bancaire','Chèque','PayPal','Prélèvement','Autre']"></x-form.select>
+                <x-form.select temp="" name="momentPaiement" label="Moment du Paiement" :datas="['Livraison','Commande']"></x-form.select>
                 <x-form.card-header title="Options"></x-form.card-header>
-                <x-form.select name="BAT" label="BAT" :datas="['NON','OUI']"></x-form.select>
-                <x-form.select name="expertiseCommande" label="Expertise" :datas="['NON','OUI']"></x-form.select>
+                <x-form.select temp="" name="BAT" label="BAT" :datas="['NON','OUI']"></x-form.select>
+                <x-form.select temp="" name="expertise" label="Expertise" :datas="['NON','OUI']"></x-form.select>
                 <x-form.card-header title="Prix"></x-form.card-header>
                 <div class="form-group">
                     <div class="d-flex justify-content-between row-cols-4">
-                    <x-form.input label="Prix des produits" id="PrixProduits" value="2" name="" type="number" step="" oninput="" readonly="readonly" required=""></x-form.input>
-                    <x-form.input label="Prix des options" id="PrixOptions" value="2" name="" type="number" step="" oninput="" readonly="readonly" required=""></x-form.input>
-                    <x-form.input label="Prix du transport" id="PrixTransports" value="0" name="pxTransporteur" type="number" step="" oninput="calc()" readonly="" required="" ></x-form.input>
+                    <x-form.input label="Prix des produits (€)" id="PrixProduits" value="0" name="" type="number" step="" oninput="calc()" readonly="" required=""></x-form.input>
+                    <x-form.input label="Prix des options (€)" id="PrixOptions" value="0" name="" type="number" step="" oninput="calc()" readonly="" required=""></x-form.input>
+                    <x-form.input label="Prix du transport (€)" id="PrixTransports" value="0" name="pxTransporteur" type="number" step="" oninput="calc()" readonly="" required="" ></x-form.input>
                     </div>
                     <div class="d-flex justify-content-between row-cols-4">
-                    <x-form.input label="Réduction" value="0" id="Reduction" name="reduction" type="number" step="" oninput="calc()" readonly="" required="" ></x-form.input>
+                    <x-form.input label="Réduction (€)" value="0" id="Reduction" name="reduction" type="number" step="" oninput="calc()" readonly="" required="" ></x-form.input>
                     <x-form.input label="Prix total HT" value="0" id="PrixHT" name="" type="number" step="" oninput="" readonly="readonly" required=""></x-form.input>
-                    <x-form.input label="TVA (20%)" value="0" id="TVA" name="" type="number" step="" oninput="" readonly="readonly" required=""></x-form.input>
+                    <x-form.input label="TVA" value="20" id="TVA" name="" type="number" step="" oninput="calc()" readonly="" required=""></x-form.input>
                     </div>
                     <div class="w-25">
-                    <x-form.input label="Prix TTC" value="0" id="PrixTTC" name="" type="" step="0.01" oninput="" readonly="readonly" required=""></x-form.input>
+                    <x-form.input label="Prix TTC" value="0" id="PrixTTC" name="pxttc" type="" step="0.01" oninput="" readonly="readonly" required=""></x-form.input>
                     </div>
                     <x-form.input-commission label="Commission de la commande" name="commission_id" :datas="$commissions"></x-form.input-commission>
                 </div>
@@ -78,13 +79,13 @@
         let tva = document.getElementById('TVA');
         let prixTTC = document.getElementById('PrixTTC');
         prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)+parseInt(reduction.value));
-        tva.value = parseInt(prixHT.value)*20/100;
-        prixTTC.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)+parseInt(reduction.value));
-        let total = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)+parseInt(reduction.value))
+        //tva.value = parseInt(prixHT.value)*20/100;
+        let total = parseFloat(prixHT.value);
+        prixTTC.value = parseFloat(total)*(1+parseInt(tva.value)/100);
         function calc() {
-            prixHT.value = parseInt(total)+parseInt(prixTransports.value)+parseInt(reduction.value);
-            tva.value = parseFloat(prixHT.value) * 20/100;
-            prixTTC.value = parseInt(prixHT.value)+parseFloat(tva.value);
+            prixHT.value = parseInt(total)+parseInt(prixTransports.value)+parseInt(reduction.value)+parseInt(prixProduits.value)+parseInt(prixOptions.value);
+            //tva.value = parseFloat(prixHT.value) * 20/100;
+            prixTTC.value = (parseInt(prixHT.value)*(1+parseInt(tva.value)/100)).toFixed(2);
         }
     </script>
 @endsection

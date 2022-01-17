@@ -96,9 +96,6 @@
         <x-list-group.group-item label="Adresse du suivi">
             {{ $commande->adrSuivi }}
         </x-list-group.group-item>
-        <x-list-group.group-item label="Option T">
-            {{ $commande->commentaire }}
-        </x-list-group.group-item>
         <x-list-group.group-item label="Impression numérique">
             {{ $commande->impressions_numeriques }}
         </x-list-group.group-item>
@@ -109,23 +106,20 @@
             {{ $commande->optionT }}
         </x-list-group.group-item>
         <x-list-group.group-item label="Prix Transporteur">
-            {{ $commande->pxTransporteur }}
+            {{ $commande->pxTransporteur.'€' }}
         </x-list-group.group-item>
-        <x-list-group.group-item label="Réf du transporteur">
-            {{ $commande->refTransporteur }}
+        <x-list-group.group-item label="Nom du transporteur">
+            {{ $commande->transporteurClient }}
         </x-list-group.group-item>
-        <x-list-group.group-item label="Id Commission">
-            {{ $commande->id_commission }}
-        </x-list-group.group-item>
-        <x-list-group.group-item label="Id nom PDF">
-            {{ $commande->id_NomPdf }}
+        <x-list-group.group-item label="Commission">
+            {{ $commande->commission->taux.'%' }}
         </x-list-group.group-item>
         <x-list-group.group-item label="Expertise">
             {{ $commande->expertise }}
         </x-list-group.group-item>
     </x-form.card>
-    <button style="border: none" type="submit" class="mb-3">
-        <a style="margin-right: auto;border-color: red" class="btn">MODIFIER LA COMMANDE</a>
+    <button style="border: none" type="button" class="mb-3">
+        <a style="margin-right: auto;border-color: red" class="btn" href="{{route('commande.edit',['noCommande'=>$commande->noCommande])}}">MODIFIER LA COMMANDE</a>
     </button>
 
 @stop

@@ -39,8 +39,48 @@ class CommandeController extends Controller
         /** PATCH DATA FOR STORE VISIT */
         /** @var Response $edit */
         //dd($request->v_id);
-        $edit = Http::withToken(session('key'))->get(env('API_PATH') . '/commande/edit/' . $request->noCommande,);
-        return redirect(route('commande.index'))->with('success', 'Commande éditée');
+        $commande = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/'.$request->noCommande));
+        $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/client/'));
+        $fournisseurs = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/fournisseur/'));
+        $commissions = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commission/'));
+        return view('commande.editcommande',['commande'=>$commande])
+            ->with('clients', $clients)->with('fournisseurs',$fournisseurs)->with('commissions',$commissions);
+    }
+
+    public function update(Request $request)
+    {
+        $commandes = Http::withToken(session('key'))->patch(env('API_PATH').'/commandes/edit/'.$request->noCommande,[
+            'dateExpd' => $request->dateExpd,
+            'refClient' => $request->refClient,
+            'entCli' => $request->entCli,
+            'adrSuivi' => $request->adrSuivi,
+            'ad1' => $request->ad1,
+            'ad2' => $request->ad2,
+            'ad3' => $request->ad3,
+            'tel' => $request->tel,
+            'mailCom' => $request->mailCom,
+            'livCli' => $request->livCli,
+            'livAd1' => $request->livAd1,
+            'livAd2' => $request->livAd2,
+            'livAd3' => $request->livAd3,
+            'noColissimo' => $request->noColissimo,
+            'product' => $request->product,
+            'moyenPaiement' => $request->moyenPaiement,
+            'reduction' => $request->reduction,
+            'pxttc' => $request->pxttc,
+            'BAT' => $request->BAT,
+            'dateExpedition' => $request->dateExpedition,
+            'lienSuivi' => $request->lienSuivi,
+            'momentPaiement' => $request->momentPaiement,
+            'commentaire' => $request->commentaire,
+            'transporteurClient' => $request->transporteurClient,
+            'expertise' => $request->expertise,
+            'pxTransporteur' => $request->pxTransporteur,
+            'noDevisCommande' => $request->noDevisCommande,
+            'refTransporteurs' => $request->refTransporteurs,
+            'id_commission' => $request->id_commission
+        ]);
+        return redirect(route('commandes.detail',['noCommande'=>$request->noCommande]))->with('success','Commande bien modifiée');
     }
 
     public function show(Request $request)
@@ -133,10 +173,11 @@ class CommandeController extends Controller
         $teleprospecteur = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/teleprospecteur/'));
         $fournisseurs = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/fournisseur/'));
         $commissions = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commission/'));
+        $products = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/product/'));
 
 
         //dd($request->refClient);
-        return view('commande.addcommande', ['commandes'=>$commandes,'teleprospecteur'=>$teleprospecteur,'clients'=>$clients,'fournisseurs'=>$fournisseurs,'commissions'=>$commissions]);
+        return view('commande.addcommande', ['commandes'=>$commandes,'teleprospecteur'=>$teleprospecteur,'clients'=>$clients,'fournisseurs'=>$fournisseurs,'commissions'=>$commissions,'products'=>$products]);
     }
 
     public function create(Request $request)
@@ -159,7 +200,7 @@ class CommandeController extends Controller
             'livAd2' => $request->livAd2,
             'livAd3' => $request->livAd3,
             'noColissimo' => $request->noColissimo,
-            'produitsCom' => $request->produitsCom,
+            'product' => $request->product,
             'moyenPaiement' => $request->moyenPaiement,
             'reduction' => $request->reduction,
             'pxttc' => $request->pxttc,
@@ -169,7 +210,7 @@ class CommandeController extends Controller
             'momentPaiement' => $request->momentPaiement,
             'commentaire' => $request->commentaire,
             'transporteurClient' => $request->transporteurClient,
-            'expertiseCommande' => $request->expertiseCommande,
+            'expertise' => $request->expertise,
             'pxTransporteur' => $request->pxTransporteur,
             'noDevisCommande' => $request->noDevisCommande,
             'refTransporteurs' => $request->refTransporteurs,

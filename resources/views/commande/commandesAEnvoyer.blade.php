@@ -33,7 +33,6 @@
             </thead>
             <tbody>
             @foreach($commandes as $commande)
-                @if ($commande->facturee ===0)
                     <tr>
                         <td>{{$commande->noCommande}}</td>
                         <td>{{$commande->entCli}}</td>
@@ -63,7 +62,6 @@
                             </x-check>
                         </td>
                     </tr>
-                @endif
             @endforeach
             </tbody>
         </table>
