@@ -96,7 +96,7 @@ class ClientController extends Controller
         /** @var Response $clients */
         $client = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/client/' . $request->refClient));
         //dd($request->refClient);
-        return view('.client.edit', ['client' => $client]);
+        return view('client.edit', ['client' => $client]);
     }
 
     public function delete(Request $request)

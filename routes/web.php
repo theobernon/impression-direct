@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HTMLPDFController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ConnectionController;
 use App\Http\Controllers\CommandeController;
@@ -41,6 +42,8 @@ Route::post('/login', [ConnectionController::class, 'login'])->name('login');
 Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(function () {
 
     Route::post('/disconnect', [ConnectionController::class, 'disconnect'])->name('disconnect');
+
+    Route::get('/html-pdf', [HTMLPDFController::class, 'htmlPdf'])->name('htmlPdf');
 
     Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('commande.facture');
 

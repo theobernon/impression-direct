@@ -301,6 +301,11 @@ return [
             'url'  => '/statistics',
             'icon' => 'fas fa-fw fa-chart-line'
         ],
+        [
+            'text' => 'PDF',
+            'url'  => '/html-pdf',
+            'icon' => 'fas fa-fw fa-chart-line'
+        ]
 
     ],
 
