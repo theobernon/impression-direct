@@ -13,8 +13,8 @@
 
  <a style="margin-right: auto;border-color: red" href="devis/form" class="btn">AJOUTER UN DEVIS</a>
 <br><br>
-<div style="overflow-x: auto">
-        <table class="fl-table">
+<div>
+        <table class="table table-bordered table-striped datatable">
             <thead>
             <tr>
                 <th>noDevis</th>
@@ -64,3 +64,17 @@
     </div>
     <br>
 @stop
+
+@section('js')
+    @parent
+    <script>
+        $('.datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
+            },
+            order: [[4, "desc"]],
+            pageLength: 10,
+            lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
+        });
+    </script>
+@endsection

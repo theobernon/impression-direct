@@ -4,25 +4,23 @@ namespace App\View\Components\Form;
 
 use Illuminate\View\Component;
 
-class Group extends Component
+class inputList extends Component
 {
-    public $value;
+    public $datas;
     public $label;
-    public $type;
-    public $required;
-    public $id;
+    public $name;
+    public $list;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($value,$label,$type,$id,$required)
+    public function __construct($datas,$label,$name,$list)
     {
-        $this->value = $value;
+        $this->datas = $datas;
         $this->label = $label;
-        $this->type = $type;
-        $this->id = $id;
-        $this->required = $required;
+        $this->name = $name;
+        $this->list = $list;
     }
 
     /**
@@ -32,6 +30,6 @@ class Group extends Component
      */
     public function render()
     {
-        return view('components.form.group');
+        return view('components.form.input-list');
     }
 }

@@ -214,7 +214,7 @@ class CommandeController extends Controller
             'pxTransporteur' => $request->pxTransporteur,
             'noDevisCommande' => $request->noDevisCommande,
             'refTransporteurs' => $request->refTransporteurs,
-            'id_commission' => $request->id_commission
+            'id_commission' => $request->id_commission,
         ]);
         //dd($request->teleprospecteur);
         return redirect(route('commande.index'))->with('success', 'Commande correctement ajouté');

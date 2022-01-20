@@ -11,8 +11,8 @@
 @stop
 
 @section('content')
-<div style="overflow-x: auto;">
-    <table class="table table-bordered table-striped datatable">
+<div>
+    <table class="table table-bordered table-striped datatable table-responsive">
         <thead>
         <tr>
             <th>Num Commande</th>
@@ -82,7 +82,6 @@
                 url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
             },
             order: [[4, "desc"]],
-            responsive: true,
             pageLength: 10,
             lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
         });

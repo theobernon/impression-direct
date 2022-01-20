@@ -11,7 +11,7 @@
         <link href="{{asset('style.css')}}" rel="stylesheet">
     </head>
 
-    <p>Ici s'afficherons les commandes qui n'ont pas été validé</p><br><br>
+    <p>Ici s'afficheront les commandes qui n'ont pas été payées</p><br><br>
     <div style="overflow-x: auto;">
         <table class="table table-bordered table-striped datatable">
             <thead>

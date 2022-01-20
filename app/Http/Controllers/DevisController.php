@@ -13,7 +13,7 @@ class DevisController extends Controller
         /** GET devis FROM API */
         /** @var Response $devis */
         $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'));
-        return view('devis', ['devis'=>$devis]);
+        return view('devis.devis', ['devis'=>$devis]);
     }
 
     public function create(Request $request)
@@ -32,7 +32,6 @@ class DevisController extends Controller
     {
         /** GET client FROM API */
         /** @var Response $devis */
-
         $devis = Http::withToken(session('key'))->post(env('API_PATH').'/ligneDevis/create',[
             'noDevis' => $request->noDevis,
             'produitDevis' => $request->Produit,
@@ -49,7 +48,7 @@ class DevisController extends Controller
             'comEntDevis' => $request->ComEnt,
             'qteDevis' => $request->Qte,
             'prixDevis' => $request->Prix,
-            'envoiDevis' => $request->envoye,
+            'envoiDevis' => intval($request->envoye),
             'prixUnit'=>$request->prixUnit
         ]);
         return redirect(route('devis.index'))->with('success', 'La ligne a bien été ajoutée');
@@ -61,7 +60,7 @@ class DevisController extends Controller
         /** @var Response $lignes */
         $lignes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis));
         $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
-        return view('addLigneDevis', ['lignes'=>$lignes, 'devis'=>$devis]);
+        return view('devis.addLigneDevis', ['lignes'=>$lignes, 'devis'=>$devis]);
     }
 
     public function showDetailLigne(Request $request)
@@ -71,7 +70,37 @@ class DevisController extends Controller
         $devisLigne = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis));
         $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
 
-        return view('detailDevis', ['devisLigne'=>$devisLigne, 'devis'=>$devis]);
+        return view('devis.detailDevis', ['devisLigne'=>$devisLigne, 'devis'=>$devis]);
+    }
+
+    public function editLigne(Request $request)
+    {
+        $ligne = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/'.$request->noLigne));
+        return view('devis.editLigne', ['ligne'=>$ligne[0]]);
+    }
+
+    public function updateLigne(Request $request)
+    {
+        $devis = Http::withToken(session('key'))->post(env('API_PATH').'/ligneDevis/edit/' . $request->noLigne,[
+            'noDevis' => $request->noDevis,
+            'Produit' => $request->Produit,
+            'TypePapier' => $request->TypePapier,
+            'couleurPapier' => $request->couleurPapier,
+            'DimPapier' => $request->DimPapier,
+            'ImpRecto' => $request->ImpRecto,
+            'ImpVerso' => $request->ImpVerso,
+            'Options' => $request->Options,
+            'Finitions' => $request->Finitions,
+            'SousTraitant' => $request->SousTraitant,
+            'Supplier' => $request->Supplier,
+            'ComCli' => $request->ComCli,
+            'ComEnt' => $request->ComEnt,
+            'Qte' => $request->Qte,
+            'Prix' => $request->Prix,
+            'envoye' => intval($request->envoye),
+            'prixUnit'=>$request->prixUnit
+        ]);
+        return redirect(route('devis.detailLigne',['noDevis'=>$request->noDevis]));
     }
 
     public function formCommandeDevis(Request $request)
@@ -91,7 +120,7 @@ class DevisController extends Controller
         $teleprospecteur = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/teleprospecteur/'));
         $fournisseurs = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/fournisseur/'));
         $commissions = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commission/'));
-        return view('addCommandeByDevis', ['lignes'=>$lignes, 'devis'=>$devis,'teleprospecteur'=>$teleprospecteur,
+        return view('devis.addCommandeByDevis', ['lignes'=>$lignes, 'devis'=>$devis,'teleprospecteur'=>$teleprospecteur,
             'fournisseurs'=>$fournisseurs,'commissions'=>$commissions,'clients'=>$clients,'totalHT'=>$totalPrixHT]);
     }
 

@@ -92,11 +92,14 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 #---- Routes devis ----#
     Route::get('/devis', [DevisController::class, 'index'])->name('devis.index');
     Route::get('/ligneDevis/detail/{noDevis}', [DevisController::class, 'showDetailLigne'])->name('devis.detailLigne');
+    Route::get('/ligneDevis/edit/{noLigne}', [DevisController::class, 'editLigne'])->name('devis.editLigne');
+    Route::post('/ligneDevis/update/{noLigne}', [DevisController::class, 'updateLigne'])->name('devis.updateLigne');
     Route::view('/devis/form','addDevis')->name('devis.form');
     Route::post('/devis/ajouter', [DevisController::class, 'create'])->name('devis.create');
     Route::post('/ligneDevis/ajouter', [DevisController::class, 'createLigneDevis'])->name('ligneDevis.create');
     Route::get('/ligneDevis/form/{noDevis}', [DevisController::class, 'formLigneDevis'])->name('ligneDevis.form');
     Route::get('/devis/ajouter/commande/{noDevis}/{refClient}', [DevisController::class, 'formCommandeDevis'])->name('devis.commande.create');
+    Route::get('/ligneDevis/delete/{noLigne', [DevisController::class, 'deleteLigne'])->name('devis.deleteLigne');
 
 
 #---- Routes devis ----#
