@@ -8,18 +8,18 @@
             <hr noshade />
             <div class="row">
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Nom" name="nomClient" value="{{$client->nom ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Prenom" name="prenomClient" value="{{$client->prenom ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Référence" name="refClient" value="{{$client->refClient ?? ''}}" readonly="readonly" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Civilité" name="civilite" value="{{$client->civilite ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Code Tiers" name="codeTiers" value="{{$client->codeTiers ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Nom" name="nomClient" value="{{$client->nom ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Prenom" name="prenomClient" value="{{$client->prenom ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Référence" name="refClient" value="{{$client->refClient ?? ''}}" readonly="readonly" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Civilité" name="civilite" value="{{$client->civilite ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Code Tiers" name="codeTiers" value="{{$client->codeTiers ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="E-mail" name="emailClient" value="{{$client->email ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Société" name="societeClient" value="{{$client->societe ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Type de client" name="typeClient" value="{{$client->typeClient ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Fonction" name="fonction" value="{{$client->fonction ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Commercial" name="id_teleprospecteur" value="{{$client->id_teleprospecteur ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="E-mail" name="emailClient" value="{{$client->email ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Société" name="societeClient" value="{{$client->societe ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Type de client" name="typeClient" value="{{$client->typeClient ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Fonction" name="fonction" value="{{$client->fonction ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Commercial" name="id_teleprospecteur" value="{{$client->id_teleprospecteur ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
             </div>
         </div>
@@ -29,11 +29,11 @@
             <hr noshade />
             <div class="row">
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Téléphone" name="telClient" value="{{$client->tel ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Téléphone mobile" name="mobileClient" value="{{$client->mobile ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Téléphone" name="telClient" value="{{$client->tel ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Téléphone mobile" name="mobileClient" value="{{$client->mobile ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Fax" name="faxClient" value="{{$client->fax ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Fax" name="faxClient" value="{{$client->fax ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
             </div>
         </div>
@@ -43,12 +43,12 @@
             <hr noshade />
             <div class="row">
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Rue" name="factAdr1" value="{{$client->factAdr1 ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Code postal" name="factAdr2" value="{{$client->factAdr2 ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Rue" name="factAdr1" value="{{$client->factAdr1 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Code postal" name="factAdr2" value="{{$client->factAdr2 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Ville" name="factAdr3" value="{{$client->factAdr3 ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Pays" name="factPays" value="{{$client->factPays ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Ville" name="factAdr3" value="{{$client->factAdr3 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Pays" name="factPays" value="{{$client->factPays ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
             </div>
         </div>
@@ -59,13 +59,13 @@
             <hr noshade />
             <div class="row">
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Nom" name="livNom" value="{{$client->livNom ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Rue" name="livAdr1" value="{{$client->livAdr1 ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Code postal" name="livAdr2" value="{{$client->livAdr2 ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Nom" name="livNom" value="{{$client->livNom ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Rue" name="livAdr1" value="{{$client->livAdr1 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Code postal" name="livAdr2" value="{{$client->livAdr2 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
                 <div class="col-md-6">
-                    <x-form.input type="" step="" onchange="" label="Ville" name="livAdr3" value="{{$client->livAdr3 ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" label="Pays" name="livPays" value="{{$client->livPays ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Ville" name="livAdr3" value="{{$client->livAdr3 ?? ''}}" readonly="" required="" oninput=""></x-form.input>
+                    <x-form.input type="" id="" step="" onchange="" label="Pays" name="livPays" value="{{$client->livPays ?? ''}}" readonly="" required="" oninput=""></x-form.input>
                 </div>
             </div>
         </div>
