@@ -78,10 +78,10 @@
         var prixHT = document.getElementById('PrixHT');
         let tva = document.getElementById('TVA');
         let prixTTC = document.getElementById('PrixTTC');
-        prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)+parseInt(reduction.value));
+        prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)-parseInt(reduction.value));
         let total = parseFloat(prixHT.value);
         function calc() {
-            prixHT.value = parseInt(total)+parseInt(prixTransports.value)+parseInt(reduction.value)+parseInt(prixProduits.value)+parseInt(prixOptions.value);
+            prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)-parseInt(reduction.value));
             prixTTC.value = (parseInt(prixHT.value)*(1+parseInt(tva.value)/100)).toFixed(2);
         }
     </script>
