@@ -33,10 +33,10 @@
                 <tr>
                     <td>{{$devi->noDevis}}</td>
                     <td>{{$devi->dateDevis}}</td>
-                    <td><a style="border: none; color: black ;background: none; text-align: center" name="dateCommande" href="{{route('client.detail', $devi->refClient)}}">{{$devi->refClient}}</a></td>
+                    <td><a style="border: none; color: black ;background: none; text-align: center" name="dateCommande" href="{{route('client.detail', ['refClient'=>$devi->refClient])}}">{{$devi->refClient}}</a></td>
                     <td>{{$devi->tva}}</td>
                     <td>
-                        <form method="GET" id="{{$devi->noDevis}}" action="{{route('devis.detailLigne',$devi->noDevis)}}">
+                        <form method="GET" id="{{$devi->noDevis}}" action="{{route('devis.detailLigne',['noDevis'=>$devi->noDevis])}}">
                             @csrf
                             <button style="border: none;background: none;" type="submit">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">

@@ -266,7 +266,7 @@ return [
                 ],
                 [
                     'text' => 'Commandes facturées',
-                    'url'  => 'commandes/commandesFacturees',
+                    'url'  => 'commandes/facturees',
                     'icon' => 'fas fa-fw fa-file-pdf'
                 ],
                 [

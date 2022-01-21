@@ -7,11 +7,52 @@
 @stop
 
 @section('content')
-    <head>
-        <link href="{{asset('style.css')}}" rel="stylesheet">
-    </head>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Commandes Facturées
+            </h3>
+            <div class="card-tools">
+                <form method="GET" action="{{route('search.commandeFacturees')}}">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="q" class="form-control float-right" placeholder="Recherche..">
 
-    <p>Ici s'afficherons les commandes qui n'ont pas été validées</p>
-    <br><br>
-    <x-commande-table :commandes="$commandes" />
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>N° Commande</th>
+                    <th>Nom de l'entreprise</th>
+                    <th>Prix TTC</th>
+                    <th>Moyen Paiement</th>
+                    <th>Date Commande</th>
+                    <th>Date Expedition</th>
+                    <th>n° Facture</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($commandes as $commande)
+                    <tr>
+                        <td>{{$commande->noCommande}}</td>
+                        <td>{{$commande->entCli}}</td>
+                        <td>{{$commande->pxttc}}</td>
+                        <td>{{$commande->mpaiement}}</td>
+                        <td>{{$commande->dateCommande}}</td>
+                        <td>{{$commande->dateExpd}}</td>
+                        <td>{{$commande->noFacture}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @stop

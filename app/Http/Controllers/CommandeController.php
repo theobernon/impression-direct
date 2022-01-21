@@ -225,7 +225,20 @@ class CommandeController extends Controller
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee/'));
+        return view('commande.commandesFacturees', ['commandes' => $commandes]);
+    }
+
+    public function factureeSearch(Request $request)
+    {
+        if (isset($request->q))
+        {
+            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/facturee/search/', [
+                'search'=>$request->q,
+            ]));
+        }else{
+            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee/'));
+        }
         return view('commande.commandesFacturees', ['commandes' => $commandes]);
     }
 

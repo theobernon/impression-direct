@@ -38,7 +38,6 @@
                         <th>Prix TTC</th>
                         <th>Moyen Paiement</th>
                         <th>Date Commande</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +48,6 @@
                         <td>{{$commande->pxttc}}</td>
                         <td>{{$commande->mpaiement}}</td>
                         <td>{{$commande->dateCommande}}</td>
-                        <td>{{'Btn'}}</td>
                     </tr>
                 @endforeach
                 </tbody>

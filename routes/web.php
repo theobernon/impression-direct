@@ -65,7 +65,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/commandesAFacturer', [CommandeController::class, 'commandeAFacturer'])->name('commande.commandeAFacturer');
     Route::get('/commandes/commandesAEnvoyer', [CommandeController::class, 'commandeAEnvoyer'])->name('commande.commandeAEnvoyer');
     Route::get('/commandes/commandesImpayes', [CommandeController::class, 'commandeImpayes'])->name('commande.commandeImpayes');
-    Route::get('/commandes/commandesFacturees', [CommandeController::class, 'commandesFacturees'])->name('commande.commandesFacturees');
+    Route::get('/commandes/facturees', [CommandeController::class, 'commandesFacturees'])->name('commande.facturees');
+    Route::get('/commandes/facturees/search', [CommandeController::class, 'factureeSearch'])->name('search.commandeFacturees');
     Route::get('/commandes/detail/{noCommande}', [CommandeController::class, 'show'])->name('commandes.detail');
     Route::get('/commandes/{noCommande}/edit', [CommandeController::class, 'edit'])->name('commande.edit');
     Route::post('/commandes/{noCommande}/update', [CommandeController::class, 'update'])->name('commande.update');
