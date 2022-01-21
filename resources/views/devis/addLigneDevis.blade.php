@@ -23,8 +23,8 @@
                 <x-form.group value="" label="Quantité" type="number" id="Qte" required="required"></x-form.group>
                 <x-form.group value="" label="Dimension papier" type="" id="DimPapier" required="required"></x-form.group>
                 <x-form.group value="" label="Options" type="" id="Options" required="required"></x-form.group>
-                <x-form.group value="" label="Prix Unitaire" type="number" id="prixUnit" required="required"></x-form.group>
-                <x-form.group value="" label="Prix" type="number" id="Prix" required="required"></x-form.group>
+                <x-form.group value="" label="Prix Unitaire" type="" id="prixUnit" required="required"></x-form.group>
+                <x-form.group value="" label="Prix" type="" id="Prix" required="required"></x-form.group>
                 <x-form.group value="" label="Couleur du papier" type="" id="couleurPapier" required="required"></x-form.group>
                 <x-form.group value="" label="Finitions du papier" type="" id="Finitions" required="required"></x-form.group>
                 <x-form.group value="" label="Impression au Recto" type="" id="ImpRecto" required="required"></x-form.group>

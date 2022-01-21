@@ -251,34 +251,4 @@ class CommandeController extends Controller
         return view('commande.index');
     }
 
-    public function archivees(Request $request)
-    {
-        if (isset($request->search))
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/archivees/search/', [
-                'search'=>$request->search,
-            ]));
-        }
-        else{
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/archivees/'));
-        }
-
-        return view('commande.commandesArchivees', ['commandes'=>$commandes]);
-    }
-
-    public function archiveSearch(Request $request)
-    {
-        if (isset($request->q))
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/archivees/search/', [
-                'search'=>$request->q,
-            ]));
-        }
-        else{
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/archivees/'));
-        }
-
-        return view('commande.commandesArchivees', ['commandes'=>$commandes]);
-    }
-
 }

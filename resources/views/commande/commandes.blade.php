@@ -6,7 +6,7 @@
     @include('flash-message')
     <h1 class="m-0 text-dark">Liste des commandes</h1>
 
-    <p>ici s'afficheront les 100 dernières commandes</p>
+    <p>ici s'afficheront les 100 dernières commandes d'impression direct</p>
     <a style="margin-right: auto;border-color: red" href="/commandes/formulaire" class="btn">AJOUTER UNE COMMANDE</a>
 @stop
 
@@ -64,7 +64,7 @@
                     <x-buttons.show id="{{$commande->noCommande}}" route="{{route('commandes.detail',$commande->noCommande)}}"></x-buttons.show>
                 </td>
                 <td>
-                    <x-buttons.delete class="" route="{{route('commande.delete',['noCommande'=>$commande->noCommande])}}"></x-buttons.delete>
+                    <x-buttons.delete route="{{route('commande.delete',['noCommande'=>$commande->noCommande])}}"></x-buttons.delete>
                 </td>
             </tr>
         @endforeach

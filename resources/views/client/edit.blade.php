@@ -7,6 +7,6 @@
 @stop
 
 @section('content')
-    <x-client.form :client="$client" action="{{route('client.update', $client[0]->refClient)}}"></x-client.form>
+    <x-client.form :client="$client" action="{{route('client.update', $client->refClient)}}"></x-client.form>
 @stop
 

@@ -269,11 +269,6 @@ return [
                     'url'  => 'commandes/commandesFacturees',
                     'icon' => 'fas fa-fw fa-file-pdf'
                 ],
-                [
-                    'text' => 'Commandes archivées',
-                    'url'  => 'commandes/archivees',
-                    'icon' => 'fas fa-archive'
-                ],
             ],
         ],
         [
@@ -305,11 +300,6 @@ return [
             'text' => 'Statistiques',
             'url'  => '/statistics',
             'icon' => 'fas fa-fw fa-chart-line'
-        ],
-        [
-            'text' => 'Export Compta',
-            'url'  => '/export',
-            'icon' => 'fas fa-file-export'
         ],
 
     ],

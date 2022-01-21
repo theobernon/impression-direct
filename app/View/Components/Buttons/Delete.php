@@ -7,16 +7,14 @@ use Illuminate\View\Component;
 class Delete extends Component
 {
     public $route;
-    public $class;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($route,$class)
+    public function __construct($route)
     {
         $this->route = $route;
-        $this->class = $class;
     }
 
     /**
