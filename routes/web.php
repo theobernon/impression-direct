@@ -75,6 +75,9 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/{noCommande}/validerCommande',[CommandeController::class, 'validerCommande'])->name('commande.validerCommande');
     Route::get('/commandes/{noCommande}/expedierCommande',[CommandeController::class, 'expedierCommande'])->name('commande.expedierCommande');
 
+    Route::get('/commandes/archivees', [CommandeController::class, 'archivees'])->name('commande.archivees');
+    Route::get('/commandes/archivees/search', [CommandeController::class, 'archiveSearch'])->name('search.commandeArchivees');
+
 #---- Routes commandes ----#
 
 #---- Routes clients ----#
@@ -94,12 +97,13 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/ligneDevis/detail/{noDevis}', [DevisController::class, 'showDetailLigne'])->name('devis.detailLigne');
     Route::get('/ligneDevis/edit/{noLigne}', [DevisController::class, 'editLigne'])->name('devis.editLigne');
     Route::post('/ligneDevis/update/{noLigne}', [DevisController::class, 'updateLigne'])->name('devis.updateLigne');
-    Route::view('/devis/form','addDevis')->name('devis.form');
+    Route::view('/devis/form','devis.addDevis')->name('devis.form');
     Route::post('/devis/ajouter', [DevisController::class, 'create'])->name('devis.create');
     Route::post('/ligneDevis/ajouter', [DevisController::class, 'createLigneDevis'])->name('ligneDevis.create');
     Route::get('/ligneDevis/form/{noDevis}', [DevisController::class, 'formLigneDevis'])->name('ligneDevis.form');
     Route::get('/devis/ajouter/commande/{noDevis}/{refClient}', [DevisController::class, 'formCommandeDevis'])->name('devis.commande.create');
-    Route::get('/ligneDevis/delete/{noLigne', [DevisController::class, 'deleteLigne'])->name('devis.deleteLigne');
+    Route::get('/ligneDevis/delete/{noLigne}', [DevisController::class, 'deleteLigne'])->name('devis.deleteLigne');
+    Route::delete('/ligneDevis/destroy/{noLigne}', [DevisController::class, 'destroyLigne'])->name('devis.destroyLigne');
 
 
 #---- Routes devis ----#
@@ -128,4 +132,10 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
         return view('productModif');
     });
 #---- Routes productModif ----#
+
+
+#---- Export Compta ----#
+   Route::get('/export', [\App\Http\Controllers\ExportController::class, 'index'])->name('export');
+   Route::post('/export/download', [\App\Http\Controllers\ExportController::class, 'download'])->name('export.download');
+   Route::post('/export/send', [\App\Http\Controllers\MailController::class, 'sendExport'])->name('export.send');
 });

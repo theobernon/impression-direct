@@ -69,7 +69,6 @@ class DevisController extends Controller
         /** @var Response $devisLigne */
         $devisLigne = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis));
         $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
-
         return view('devis.detailDevis', ['devisLigne'=>$devisLigne, 'devis'=>$devis]);
     }
 
@@ -101,6 +100,19 @@ class DevisController extends Controller
             'prixUnit'=>$request->prixUnit
         ]);
         return redirect(route('devis.detailLigne',['noDevis'=>$request->noDevis]));
+    }
+
+    public function deleteLigne(Request $request)
+    {
+        $ligne = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/'.$request->noLigne));
+        return view('devis.deleteLigne',['ligne'=>$ligne]);
+    }
+
+    public function destroyLigne(Request $request)
+    {
+        $delete = json_decode(Http::withToken(session('key'))->delete(env('API_PATH') . '/ligneDevis/destroy/' . $request->noLigne,));
+        //dd($request->noCommande);
+        return redirect(route('devis.index'))->with('error', 'Ligne bien supprimée');
     }
 
     public function formCommandeDevis(Request $request)

@@ -3,6 +3,7 @@
 @section('title', 'ImpressionDirect')
 
 @section('content_header')
+    @include('flash-message')
     <h1 class="m-0 text-dark">Liste des devis</h1>
 @stop
 

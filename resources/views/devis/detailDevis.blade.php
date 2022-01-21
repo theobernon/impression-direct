@@ -3,6 +3,7 @@
 @section('title', 'ImpressionDirect')
 
 @section('content_header')
+    @include('flash-message')
     <head>
         <link href="{{asset('style.css')}}" rel="stylesheet">
         <meta http-equiv="X-UA-Compatible" content="id=edge" />
@@ -56,9 +57,9 @@
                     <td>
                         <x-check value="{{$dLigne->Envoye}}" url=""></x-check>
                     </td>
-                    <td>
+                    <td class="d-flex">
                         <x-buttons.edit route="{{route('devis.editLigne',['noLigne'=>$dLigne->noLigne])}}"></x-buttons.edit>
-                        <x-buttons.delete route=""></x-buttons.delete>
+                        <x-buttons.delete route="{{route('devis.deleteLigne',['noLigne'=>$dLigne->noLigne])}}" class="ml-2"></x-buttons.delete>
                     </td>
                 </tr>
             @endforeach
@@ -67,7 +68,8 @@
         </table>
     </div>
     <br>
-    <a style="margin-right: auto;border-color: red" href="/ligneDevis/form/{{$devisLigne[0]->noDevis}}"  class="btn">AJOUTER UNE LIGNE</a>
+
+    <a style="margin-right: auto;border-color: red" href="/ligneDevis/form/{{$devis[0]->noDevis}}"  class="btn">AJOUTER UNE LIGNE</a>
     </body>
 
 @stop

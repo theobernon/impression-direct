@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <x-client.form :client="$clients" action="{{route('client.edit',['refClient'=>$clients->refClient])}}"></x-client.form>
+    <x-client.form :client="$clients" action="{{route('client.edit',['refClient'=>$clients[0]->refClient])}}"></x-client.form>
 @stop
 
 
