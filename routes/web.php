@@ -44,6 +44,9 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 
     Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('commande.facture');
 
+    Route::get('/{noCommande}/html-pdf', [CommandeController::class, 'htmlPdf'])->name('htmlPdf');
+
+
 #---- Routes commandes ----#
 
     Route::get('/commandes', [CommandeController::class, 'index'])->name('commande.index');

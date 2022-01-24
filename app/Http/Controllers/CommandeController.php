@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 
 class CommandeController extends Controller
@@ -249,6 +251,23 @@ class CommandeController extends Controller
         /** @var Response $genereFacture */
         $genereFacture = Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/nFact/'.$request->noCommande);
         return view('commande.index');
+    }
+
+    public function htmlPdf(Request $request)
+    {
+
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/getFact/'.$request->noCommande));
+//        dd($commandes->ad1);
+        $explode = explode(',', $commandes->produits);
+        $produit = str_replace("Produit : ","",$explode[0]);
+        $qte = str_replace("Quantité :","",$explode[1]);
+        $pxht = str_replace(["Prix :","? HT -"],"",$explode[2]);
+
+        // selecting PDF view
+        view()->share('commandes',$commandes);
+        $pdf = PDF::LoadView('htmlPdf', compact('commandes','qte','pxht','produit'));
+        // download pdf file
+        return $pdf->download('facture.pdf');
     }
 
 }

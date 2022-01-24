@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>HTML 2 PDF</title>
     <style type="text/css">
+        body{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
         .center {
             text-align: center;
         }
@@ -39,11 +44,16 @@
         .border {
             border: none;
         }
+        .centerTable {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
     </style>
 </head>
 
 <body>
-    @foreach ($commandes as $commande)
+{{--    @foreach ($commandes as $commande)--}}
     <div class="left" margin-top="0" margin-bottom="0px">
         <img src="https://procamping85.com/wp-content/uploads/2020/11/Impression-Direct1250pixels.jpg" height="150." width="375">
     </div>
@@ -52,21 +62,21 @@
         <div>
             <p>
                 <b>Facture n° f486701135662</b>
-                <br>Concernant la Commande n°{{$commande->noCommande ?? ''}}
+                <br>Concernant la Commande n°{{$commandes->noCommande ?? ''}}
                 <br><i>Editée le 03/01/2013</i>
             </p>
             <p>
-                {{$commande->entCli ?? ''}}
-                <br>{{$commande->ad1 ?? ''}}
-                <br>{{$commande->ad2 ?? ''}}
-                <br>{{$commande->ad3 ?? ''}}
-                <br>tél.: {{$commande->tel ?? ''}}
-                <br>fax: {{$commande->client->fax ?? ''}}
+                {{$commandes->entCli ?? ''}}
+                <br>{{$commandes->ad1 ?? ''}}
+                <br>{{$commandes->ad2 ?? ''}}
+                <br>{{$commandes->ad3 ?? ''}}
+                <br>tél.: {{$commandes->tel ?? ''}}
+                <br>fax: {{$commandes->client->fax ?? ''}}
             </p>
         </div>
     </div>
 
-    <table>
+    <table class="centerTable">
         <caption><i>Produits</i></caption>
         <thead>
             <tr>
@@ -117,13 +127,13 @@
                 <td class="border"></td>
                 <td class="border"></td>
                 <td class="border"><b>Total TTC</b></td>
-                <td><b>{{$commande->pxttc ?? ''}} €</b></td>
+                <td><b>{{$commandes->pxttc ?? ''}} €</b></td>
             </tr>
             <tr>
                 <td class="border"></td>
                 <td class="border"></td>
                 <td class="border"><b>Reste à payer</b></td>
-                <td><b>{{$commande->pxttc ?? ''}} €</b></td>
+                <td><b>{{$commandes->pxttc ?? ''}} €</b></td>
             </tr>
         </tfoot>
     </table>
@@ -133,25 +143,25 @@
     <hr noshade="" />
 
 
-    @if ($commande->momentPaiement = 'livraison')
-    <p>Paiment : à la livraison
-    <p>
-        @else
-    <p>Paiment : à la commande
-    <p>
-        @endif
+{{--    @if ($commande->momentPaiement = 'livraison')--}}
+{{--    <p>Paiment : à la livraison--}}
+{{--    <p>--}}
+{{--        @else--}}
+{{--    <p>Paiment : à la commande--}}
+{{--    <p>--}}
+{{--        @endif--}}
 
-        @if ($commande->mpaiement = 'chèque')
-    <p>Moyen de paiement : par chèque</p>
-    @elseif ($commande->mpaiement = 'carte bancaire')
-    <p>Moyen de paiement : par carte bancaire</p>
-    @elseif ($commande->mpaiement = 'virement bancaire')
-    <p>Moyen de virement : par virement bancaire au
-        <br /> BANQUE POPULAIRE ATLANTIQUE
-        Banque : 13807 | Guichet : 00843 | N° de compte 30221889548 | Clé RIB 46
-        IBAN : FR76 1380 7008 43330 2218 8954 846 | Bank Identifier Code : CCBBPFRPPNAN
-    </p>
-    @endif
+{{--        @if ($commande->mpaiement = 'chèque')--}}
+{{--    <p>Moyen de paiement : par chèque</p>--}}
+{{--    @elseif ($commande->mpaiement = 'carte bancaire')--}}
+{{--    <p>Moyen de paiement : par carte bancaire</p>--}}
+{{--    @elseif ($commande->mpaiement = 'virement bancaire')--}}
+{{--    <p>Moyen de virement : par virement bancaire au--}}
+{{--        <br /> BANQUE POPULAIRE ATLANTIQUE--}}
+{{--        Banque : 13807 | Guichet : 00843 | N° de compte 30221889548 | Clé RIB 46--}}
+{{--        IBAN : FR76 1380 7008 43330 2218 8954 846 | Bank Identifier Code : CCBBPFRPPNAN--}}
+{{--    </p>--}}
+{{--    @endif--}}
 
     <small style="font-size:10px"><i>
             Le défaut de paiement d'un effet à son échéance :
@@ -173,7 +183,7 @@
             RCS 449 225 788 BLOIS - Telephone : 02 51 34 65 30 - fax : 09 72 11 87 10
         </p>
     </div>
-    @endforeach
+{{--    @endforeach--}}
 
 </body>
 
