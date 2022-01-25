@@ -83,6 +83,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 
 #---- Routes clients ----#
     Route::get('/client', [ClientController::class, 'index'])->name('client.index');
+    Route::get('/client/search', [ClientController::class, 'search'])->name('client.search');
     Route::post('/client/destroy/{refClient}', [ClientController::class, 'delete'])->name('client.delete');
     Route::get('/client/detail/{refClient}', [ClientController::class, 'show'])->name('client.detail');
     Route::post('/client/edit/{refClient}', [ClientController::class, 'edit'])->name('client.edit');
@@ -95,10 +96,15 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 
 #---- Routes devis ----#
     Route::get('/devis', [DevisController::class, 'index'])->name('devis.index');
+    Route::get('/devis/search', [DevisController::class, 'search'])->name('devis.search');
+    Route::get('/devis/edit/{noDevis}', [DevisController::class, 'edit'])->name('devis.edit');
+    Route::post('/devis/update/{noDevis}', [DevisController::class, 'update'])->name('devis.update');
+    Route::get('/devis/delete/{noDevis}', [DevisController::class, 'delete'])->name('devis.delete');
+    Route::delete('/devis/destroy/{noDevis}', [DevisController::class, 'destroy'])->name('devis.destroy');
     Route::get('/ligneDevis/detail/{noDevis}', [DevisController::class, 'showDetailLigne'])->name('devis.detailLigne');
     Route::get('/ligneDevis/edit/{noLigne}', [DevisController::class, 'editLigne'])->name('devis.editLigne');
     Route::post('/ligneDevis/update/{noLigne}', [DevisController::class, 'updateLigne'])->name('devis.updateLigne');
-    Route::view('/devis/form','devis.addDevis')->name('devis.form');
+    Route::get('/devis/form', [DevisController::class, 'add'])->name('devis.form');
     Route::post('/devis/ajouter', [DevisController::class, 'create'])->name('devis.create');
     Route::post('/ligneDevis/ajouter', [DevisController::class, 'createLigneDevis'])->name('ligneDevis.create');
     Route::get('/ligneDevis/form/{noDevis}', [DevisController::class, 'formLigneDevis'])->name('ligneDevis.form');

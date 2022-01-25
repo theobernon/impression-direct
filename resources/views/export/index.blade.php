@@ -11,8 +11,8 @@
 <head>
     <link href="{{asset('style.css')}}" rel="stylesheet">
 </head>
-
-    <p>Ici vous pourrez exporter des données en CSV</p>
+    <h5>Choisissez une période pour l'export vers Compta</h5>
+    <p>Si aucune date de fin n'est spécifiée, cette date de sera automatiquement la date actuelle</p>
 <x-form.form action="{{route('export.send')}}">
     <x-form.card title="Export Compta" class="">
         <x-form.group value="" label="Date de début" type="date" id="dateDebut" required="required"></x-form.group>

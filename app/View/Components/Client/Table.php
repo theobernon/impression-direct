@@ -7,15 +7,17 @@ use Illuminate\View\Component;
 class Table extends Component
 {
     public $clients;
+    public $pagination;
     public $action;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($clients)
+    public function __construct($clients,$pagination)
     {
         $this->clients = $clients;
+        $this->pagination = $pagination;
         $this->action = route('client.create');
     }
 

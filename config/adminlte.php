@@ -284,7 +284,7 @@ return [
         [
             'text' => 'Devis',
             'url'  => 'devis',
-            'icon' => 'fas fa-fw fa-file'
+            'icon' => 'fas fa-fw fa-file',
         ],
         [
             'text' => 'Fournisseurs',

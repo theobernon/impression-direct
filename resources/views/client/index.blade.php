@@ -4,7 +4,7 @@
 
 @section('content_header')
     <h1 class="m-0 text-dark">Liste des clients</h1>
-    <x-buttons.create route="{{route('client.ajouter')}}"></x-buttons.create>
+    <x-buttons.create route="{{route('client.ajouter')}}">Ajouter un client</x-buttons.create>
 
 @stop
 
@@ -13,7 +13,7 @@
         <link href="{{asset('style.css')}}" rel="stylesheet">
     </head>
     <br><br>
-    <x-client.table :clients="$clients" ></x-client.table>
+    <x-client.table :clients="$clients" :pagination="$pagination" ></x-client.table>
 @stop
 
 @section('js')
@@ -26,6 +26,8 @@
             order: [[1, "desc"]],
             responsive: true,
             pageLength: 10,
+            bPaginate: false, /* Désactive la pagination des datatables */
+            info: false,
             lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
         });
     </script>

@@ -10,17 +10,19 @@ class inputList extends Component
     public $label;
     public $name;
     public $list;
+    public $value;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($datas,$label,$name,$list)
+    public function __construct($datas,$label,$name,$list,$value)
     {
         $this->datas = $datas;
         $this->label = $label;
         $this->name = $name;
         $this->list = $list;
+        $this->value = $value;
     }
 
     /**

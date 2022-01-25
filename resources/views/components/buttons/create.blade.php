@@ -1,4 +1,4 @@
 <form method="GET"  action="{{$route}}">
     @csrf
-    <button type="submit" class="btn btn-danger float-right">Ajouter un client</button>
+    <button type="submit" class="btn btn-danger float-right">{{$slot}}</button>
 </form>

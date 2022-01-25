@@ -12,19 +12,19 @@
 </head>
 
     <p>Ici s'afficherons les revendeurs</p>
-    <button class="button1"> Ajouter un revendeur</button>
+    <x-buttons.add route="">Ajouter un revendeur</x-buttons.add>
 <br><br>
 <div style="overflow-x: auto;">
-    <table class="fl-table">
+    <table class="table table-bordered table-striped datatable">
         <thead>
         <tr>
-            <th>reference</th>
-            <th>appelation</th>
-            <th>prix</th>
-            <th>revendeur</th>
-            <th>numColis</th>
+            <th>Référence</th>
+            <th>Appellation</th>
+            <th>Commentaire</th>
+            <th>Prix</th>
+            <th>Revendeur</th>
+            <th>Numéros Colis</th>
             <th>Téléphone</th>
-
         </tr>
         </thead>
         <tbody>
@@ -32,6 +32,7 @@
             <tr>
                 <td>{{$fournisseur->reference}}</td>
                 <td>{{$fournisseur->appellation}}</td>
+                <td>{{$fournisseur->commentaire}}</td>
                 <td>{{$fournisseur->prix}}</td>
                 <td>{{$fournisseur->revendeur}}</td>
                 <td>{{$fournisseur->numColis}}</td>
@@ -43,3 +44,17 @@
 </div>
 
 @stop
+
+@section('js')
+    @parent
+    <script>
+        $('.datatable').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
+            },
+            order: [[4, "desc"]],
+            pageLength: 10,
+            lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
+        });
+    </script>
+@endsection

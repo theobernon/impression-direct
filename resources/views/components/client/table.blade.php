@@ -1,7 +1,27 @@
 {{--<form.form  method="POST" action="{{$action}}">--}}
-    <table class="table table-bordered table-striped datatable" >
-        <thead>
-        <tr>
+<div class="card mb-0">
+    <div class="card-header">
+        <h3 class="card-title">
+            Liste des clients
+        </h3>
+        <div class="card-tools">
+            <form method="GET" action="{{route('client.search')}}">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="q" class="form-control float-right" placeholder="Recherche..">
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
             <th>{{__('Référence')}}</th>
             <th>{{__('Email')}}</th>
             <th>{{__('Nom')}}</th>
@@ -15,7 +35,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($clients as $client)
+        @foreach($clients->clients as $client)
             <tr>
                 <td>{{$client->refClient}}</td>
                 <td>{{$client->email}}</td>
@@ -35,4 +55,10 @@
         @endforeach
         </tbody>
     </table>
+    </div>
+    <br/>
+    <div class="d-flex justify-content-end mr-2">
+    {{($pagination->links('pagination::bootstrap-4'))}} {{--Pagination Links--}}
+    </div>
+</div>
 {{--</form.form>--}}

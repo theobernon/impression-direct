@@ -5,16 +5,34 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /** GET client FROM API */
         /** @var Response $clients */
-        $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/client/'));
-        return view('client.index', ['clients' => $clients]);
+        $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/client?page='.$request->page));
+
+        $pagination = new LengthAwarePaginator($clients, $clients->total, $clients->perpage,$clients->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('client.index', ['clients' => $clients])->with('pagination', $pagination);
+    }
+    public function search(Request $request)
+    {
+        /** GET client FROM API */
+        /** @var Response $clients */
+        $clients = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/client/search?page='.$request->page,[
+            'search'=>$request->q,
+        ]));
+        $pagination = new LengthAwarePaginator($clients, $clients->total, $clients->perpage,$clients->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('client.index', ['clients' => $clients])->with('pagination', $pagination);
     }
 
     public function create(Request $request)

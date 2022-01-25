@@ -14,8 +14,27 @@
 
  <a style="margin-right: auto;border-color: red" href="devis/form" class="btn">AJOUTER UN DEVIS</a>
 <br><br>
-<div>
-        <table class="table table-bordered table-striped datatable">
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            Liste des devis
+        </h3>
+        <div class="card-tools">
+            <form method="GET" action="{{route('devis.search')}}">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="q" class="form-control float-right" placeholder="Recherche..">
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>noDevis</th>
@@ -24,16 +43,15 @@
                 <th>TVA</th>
                 <th>Détails Devis</th>
                 <th>Passer Commande</th>
-
-
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            @foreach ($devis as $devi)
+            @foreach ($devis->devis as $devi)
                 <tr>
                     <td>{{$devi->noDevis}}</td>
                     <td>{{$devi->dateDevis}}</td>
-                    <td><a style="border: none; color: black ;background: none; text-align: center" name="dateCommande" href="{{route('client.detail', ['refClient'=>$devi->refClient])}}">{{$devi->refClient}}</a></td>
+                    <td ><a class="text-primary font-weight-bold"  name="dateCommande" href="{{route('client.detail', ['refClient'=>$devi->refClient])}}">{{$devi->refClient}}</a></td>
                     <td>{{$devi->tva}}</td>
                     <td>
                         <form method="GET" id="{{$devi->noDevis}}" action="{{route('devis.detailLigne',['noDevis'=>$devi->noDevis])}}">
@@ -58,11 +76,19 @@
                             </button>
                         </form>
                     </td>
+                    <td>
+                        <x-buttons.edit route="{{route('devis.edit', ['noDevis'=>$devi->noDevis])}}"></x-buttons.edit>
+                        <x-buttons.delete route="{{route('devis.delete', ['noDevis'=>$devi->noDevis])}}" class=""></x-buttons.delete>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-end mr-2">
+        {{($pagination->links('pagination::bootstrap-4'))}} {{--Pagination Links--}}
+    </div>
+</div>
     <br>
 @stop
 
@@ -73,7 +99,7 @@
             language: {
                 url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
             },
-            order: [[4, "desc"]],
+            order: [[1, "desc"]],
             pageLength: 10,
             lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
         });

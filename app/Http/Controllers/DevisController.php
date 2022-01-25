@@ -4,16 +4,88 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 class DevisController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         /** GET devis FROM API */
         /** @var Response $devis */
-        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'));
-        return view('devis.devis', ['devis'=>$devis]);
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/devis?page='.$request->page));
+
+        $pagination = new LengthAwarePaginator($devis, $devis->total, $devis->perpage,$devis->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('devis.devis', ['devis'=>$devis])->with('pagination',$pagination);
+    }
+
+    public function search(Request $request)
+    {
+        /** GET devis FROM API */
+        /** @var Response $devis */
+        $devis = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/devis/search?page='.$request->page, [
+            'search'=>$request->q,
+        ]));
+        $pagination = new LengthAwarePaginator($devis, $devis->total, $devis->perpage,$devis->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('devis.devis', ['devis'=>$devis])->with('pagination',$pagination);
+    }
+
+    public function edit(Request $request)
+    {
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
+        return view('devis.editDevis', ['devis'=>$devis]);
+    }
+
+    public function update(Request $request)
+    {
+        $devis = json_decode(Http::withToken(session('key'))->post(env('API_PATH').'/devis/edit/'.$request->noDevis, [
+            'dateDevis'=>date('Y-m-d H:i:s', strtotime($request->dateDevis)),
+            'refClient'=>$request->refClient,
+            'tva'=>$request->tva
+        ]));
+        return redirect(route('devis.index'))->with('success', 'Devis correctement modifié');
+    }
+
+    public function delete(Request $request)
+    {
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
+        return view('devis.delete',['devis'=>$devis]);
+    }
+
+    public function destroy(Request $request)
+    {
+        $devis = json_decode(Http::withToken(session('key'))->delete(env('API_PATH').'/devis/destroy/'.$request->noDevis));
+        return redirect(route('devis.index'))->with('error','Devis correctement supprimé');
+    }
+
+    public function archivees()
+    {
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/archivees'));
+        return view('devis.archivees', ['devis'=>$devis]);
+    }
+
+    public function archiveSearch(Request $request)
+    {
+        if (isset($request->q))
+        {
+            $devis = json_decode(Http::withToken(session('key'))->post(env('API_PATH').'/devis/archivees/search' , [
+                'search'=>$request->q,
+            ]));
+        }else{
+            $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/archivees'));
+        }
+        return view('devis.archivees',['devis'=>$devis]);
+    }
+
+    public function add()
+    {
+        $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/client/'));
+        return view('devis.addDevis', ['clients'=>$clients]);
     }
 
     public function create(Request $request)
