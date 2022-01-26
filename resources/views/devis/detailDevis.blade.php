@@ -9,9 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="id=edge" />
     </head>
     <body>
-    @foreach($devis as $dLigne)
-        <h1 style="text-align: center" class="m-0 text-dark">Detail du devis n°{{$dLigne->noDevis}}</h1>
-    @endforeach
+        <h1 style="text-align: center" class="m-0 text-dark">Detail du devis n°{{$devis->noDevis}}</h1>
         <a style="border-color: red" href="{{url()->previous()}}" class="btn">RETOUR</a>
     <br>
     <br>
@@ -69,7 +67,7 @@
     </div>
     <br>
 
-    <a style="margin-right: auto;border-color: red" href="/ligneDevis/form/{{$devis[0]->noDevis}}"  class="btn">AJOUTER UNE LIGNE</a>
+    <a style="margin-right: auto;border-color: red" href="/ligneDevis/form/{{$devis->noDevis}}"  class="btn">AJOUTER UNE LIGNE</a>
     </body>
 
 @stop

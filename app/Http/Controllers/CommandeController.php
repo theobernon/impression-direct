@@ -6,16 +6,32 @@ use App\Models\Commandes;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 
 class CommandeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         //dd(json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/')));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        return view('commande.commandes',['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes?page='. $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandes',['commandes' => $commandes, 'pagination'=>$pagination]);
+    }
+
+    public function search(Request $request)
+    {
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/search?page='. $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandes',['commandes' => $commandes, 'pagination'=>$pagination]);
     }
 
     public function delete(Request $request)

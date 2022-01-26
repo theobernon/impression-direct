@@ -147,7 +147,7 @@ class DevisController extends Controller
     public function editLigne(Request $request)
     {
         $ligne = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/'.$request->noLigne));
-        return view('devis.editLigne', ['ligne'=>$ligne[0]]);
+        return view('devis.editLigne', ['ligne'=>$ligne]);
     }
 
     public function updateLigne(Request $request)

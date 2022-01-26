@@ -15,7 +15,7 @@
             @csrf
             <div class="d-flex">
                 <x-form.card title="Information commande" class="w-100">
-                    <x-form.input-search temp="{{$commande->refClient}}" label="Référence du client" :datas="$clients" arg="refClient" name="refClient">
+                    <x-form.input-search temp="{{$commande->refClient}}" label="Référence du client" :datas="$clients->clients" arg="refClient" name="refClient">
                     </x-form.input-search>
                     <x-form.input-search temp="{{$commande->transporteurClient}}" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
                     </x-form.input-search>

@@ -47,6 +47,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 #---- Routes commandes ----#
 
     Route::get('/commandes', [CommandeController::class, 'index'])->name('commande.index');
+    Route::get('/commandes/search', [CommandeController::class, 'search'])->name('commande.search');
     Route::get('commande/{noCommande}/delete',[CommandeController::class,'delete'])->name('commande.delete');
     Route::delete('commande/{noCommande}/destroy', [CommandeController::class, 'destroy'])->name('commande.destroy');
     Route::get('/comm andes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
