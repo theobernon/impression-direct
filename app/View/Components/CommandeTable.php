@@ -6,16 +6,19 @@ use Illuminate\View\Component;
 
 class CommandeTable extends Component
 {
-public $commandes;
-
+    public $commandes;
+    public $action;
+    public $pagination;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($commandes)
+    public function __construct($commandes, $action,$pagination)
     {
         $this->commandes=$commandes;
+        $this->action = $action;
+        $this->pagination = $pagination;
     }
 
     /**

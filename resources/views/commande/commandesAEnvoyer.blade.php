@@ -13,10 +13,29 @@
 
     <p>Ici s'afficherons les commandes qui n'ont pas été envoyées</p>
     <br><br>
-    <div style="overflow-x: auto;">
-        <table class="table table-bordered table-striped datatable">
-            <thead>
-            <tr>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Liste des commandes
+            </h3>
+            <div class="card-tools">
+                <form method="GET" action="{{route('commande.aEnvoyer.search')}}">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="q" class="form-control float-right" placeholder="Recherche..">
+
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-default">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                <tr>
                 <th>Num Commande</th>
                 <th style="width: 10px">Nom de l'entreprise</th>
                 <th>Prix TTC</th>
@@ -32,7 +51,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($commandes as $commande)
+            @foreach($commandes->commandes as $commande)
                     <tr>
                         <td>{{$commande->noCommande}}</td>
                         <td>{{$commande->entCli}}</td>
@@ -65,19 +84,8 @@
             @endforeach
             </tbody>
         </table>
+            <div class="d-flex justify-content-end mr-2">
+                {{($pagination->links('pagination::bootstrap-4'))}} {{--Pagination Links--}}
+            </div>
     </div>
 @stop
-
-@section('js')
-    @parent
-    <script>
-        $('.datatable').DataTable({
-            language: {
-                url: 'https://cdn.datatables.net/plug-ins/1.11.1/i18n/fr_fr.json'
-            },
-            responsive: true,
-            pageLength: 10,
-            lengthMenu: [[10, 25, -1], [10, 25, "Tout"]]
-        });
-    </script>
-@endsection

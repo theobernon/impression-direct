@@ -269,11 +269,6 @@ return [
                     'url'  => 'commandes/facturees',
                     'icon' => 'fas fa-fw fa-file-pdf'
                 ],
-                [
-                    'text' => 'Commandes archivées',
-                    'url'  => 'commandes/archivees',
-                    'icon' => 'fas fa-archive'
-                ],
             ],
         ],
         [

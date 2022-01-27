@@ -33,10 +33,13 @@ class ComptaExport implements FromArray, WithCustomCsvSettings
             $dateFin = date('Y-m-d H:i:s');
         }
         //dd('date de début : '.$dateDebut.' - date de fin :'.$dateFin);
-        $facture = json_decode(Http::withToken(session('key'))->post(env('API_PATH').'/export/', [
+        $factures = json_decode(Http::withToken(session('key'))->post(env('API_PATH').'/export/', [
             'dateDebut'=>$dateDebut,
             'dateFin'=>$dateFin
         ]));
-        return $facture;
+//        dd(
+  //          $factures
+    //    );
+        return $factures;
     }
 }

@@ -61,11 +61,17 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
         return view('/commande/commandesAEnvoyer');
     });
     Route::get('/commandes/commandesClient', [CommandeController::class, 'clientAValider'])->name('commande.clientValider');
+    Route::get('/commandes/commandesClient/search', [CommandeController::class, 'clientAValiderSearch'])->name('commande.clientValider.search');
     Route::get('/commandes/commandesAValider', [CommandeController::class, 'commandesAValider'])->name('commande.commandeAValidee');
+    Route::get('/commandes/commandesAValider/search', [CommandeController::class, 'commandesAValiderSearch'])->name('commande.commandeAValidee.search');
     Route::get('/commandes/commandesAExpedier', [CommandeController::class, 'commandeAExpedier'])->name('commande.commandeAExpedier');
+    Route::get('/commandes/commandesAExpedier/search', [CommandeController::class, 'aExpedierSearch'])->name('commande.commandeAExpedier.search');
     Route::get('/commandes/commandesAFacturer', [CommandeController::class, 'commandeAFacturer'])->name('commande.commandeAFacturer');
+    Route::get('/commandes/commandesAFacturer/search', [CommandeController::class, 'aFacturerSearch'])->name('commande.aFacturer.search');
     Route::get('/commandes/commandesAEnvoyer', [CommandeController::class, 'commandeAEnvoyer'])->name('commande.commandeAEnvoyer');
+    Route::get('/commandes/commandesAEnvoyer/search', [CommandeController::class, 'aEnvoyerSearch'])->name('commande.aEnvoyer.search');
     Route::get('/commandes/commandesImpayes', [CommandeController::class, 'commandeImpayes'])->name('commande.commandeImpayes');
+    Route::get('/commandes/commandesImpayes/search', [CommandeController::class, 'impayeeSearch'])->name('commande.impayes.search');
     Route::get('/commandes/facturees', [CommandeController::class, 'commandesFacturees'])->name('commande.facturees');
     Route::get('/commandes/facturees/search', [CommandeController::class, 'factureeSearch'])->name('search.commandeFacturees');
     Route::get('/commandes/detail/{noCommande}', [CommandeController::class, 'show'])->name('commandes.detail');
@@ -76,9 +82,6 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/{noCommande}/validerClient',[CommandeController::class, 'validerClient'])->name('commande.validerClient');
     Route::get('/commandes/{noCommande}/validerCommande',[CommandeController::class, 'validerCommande'])->name('commande.validerCommande');
     Route::get('/commandes/{noCommande}/expedierCommande',[CommandeController::class, 'expedierCommande'])->name('commande.expedierCommande');
-
-    Route::get('/commandes/archivees', [CommandeController::class, 'archivees'])->name('commande.archivees');
-    Route::get('/commandes/archivees/search', [CommandeController::class, 'archiveSearch'])->name('search.commandeArchivees');
 
 #---- Routes commandes ----#
 
