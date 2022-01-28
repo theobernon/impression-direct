@@ -42,7 +42,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 
     Route::post('/disconnect', [ConnectionController::class, 'disconnect'])->name('disconnect');
 
-    Route::get('generate-pdf', [PDFController::class, 'generatePDF'])->name('commande.facture');
+    Route::get('htmlPdf', [CommandeController::class, 'htmlPdf'])->name('htmlPdf');
 
 #---- Routes commandes ----#
 
@@ -112,6 +112,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/devis/ajouter/commande/{noDevis}/{refClient}', [DevisController::class, 'formCommandeDevis'])->name('devis.commande.create');
     Route::get('/ligneDevis/delete/{noLigne}', [DevisController::class, 'deleteLigne'])->name('devis.deleteLigne');
     Route::delete('/ligneDevis/destroy/{noLigne}', [DevisController::class, 'destroyLigne'])->name('devis.destroyLigne');
+    Route::get('/devisPdf', [DevisController::class, 'devisPdf'])->name('devisPdf');
 
 
 #---- Routes devis ----#

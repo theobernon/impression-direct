@@ -44,6 +44,9 @@
                 <th>Détails Devis</th>
                 <th>Passer Commande</th>
                 <th>Actions</th>
+                <th>Télécharger le devis</th>
+
+
             </tr>
             </thead>
             <tbody>
@@ -79,6 +82,9 @@
                     <td>
                         <x-buttons.edit route="{{route('devis.edit', ['noDevis'=>$devi->noDevis])}}"></x-buttons.edit>
                         <x-buttons.delete route="{{route('devis.delete', ['noDevis'=>$devi->noDevis])}}" class=""></x-buttons.delete>
+
+                    <td>
+                        <a target="_blank" href="{{route('devisPdf',['noDevis'=>$devi->noDevis,'refClient'=>$devi->refClient])}}"><i style="font-size:25px" class="far fa-file-pdf"></i></a>
                     </td>
                 </tr>
             @endforeach

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -206,6 +207,44 @@ class DevisController extends Controller
         $commissions = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commission/'));
         return view('devis.addCommandeByDevis', ['lignes'=>$lignes, 'devis'=>$devis,'teleprospecteur'=>$teleprospecteur,
             'fournisseurs'=>$fournisseurs,'commissions'=>$commissions,'clients'=>$clients,'totalHT'=>$totalPrixHT]);
+    }
+
+    public function devisPdf(Request $request)
+    {
+        $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/client/'.$request->refClient));
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/'.$request->noDevis));
+        $lignes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis));
+
+// dd($lignes);
+
+        $tva=0;
+        $totalHt=0;
+        foreach($lignes as $ligne)
+        {
+            $totalHt+=$ligne->Prix;
+        }
+        $tva=$totalHt*($devis->tva/100);
+        $totalTTC=$totalHt+$tva;
+
+        view()->share([
+            'clients'=>$clients, 
+            'devis'=>$devis, 
+            'devisLignes'=>$lignes,
+            'totalHt'=>$totalHt,
+            'tva'=>$tva,
+            'totalTTC'=>$totalTTC
+        ]);
+        // selecting PDF view
+        $pdf = PDF::LoadView('devisPdf',compact(
+            'clients',
+            'devis',
+            'lignes',
+            'totalHt',
+            'tva',
+            'totalTTC'
+        ));
+        // download pdf file
+        return $pdf->stream('devis.pdf');
     }
 
 

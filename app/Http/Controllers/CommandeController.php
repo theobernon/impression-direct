@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Commandes;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
@@ -308,6 +309,23 @@ class CommandeController extends Controller
         }
 
         return view('commande.commandesArchivees', ['commandes'=>$commandes]);
+    }
+
+
+        public function htmlPdf(Request $request)
+        {
+            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/getFact/'.$request->noCommande));
+            
+            $explode = explode(',', $commandes->produits);
+            $produit = str_replace("Produit : ","",$explode[0]);
+            $qte = str_replace("Quantité :","",$explode[1]);
+            $pxht = str_replace(["Prix :","? HT -"],"",$explode[2]);
+            // selecting PDF view
+            view()->share('commandes',$commandes);
+            $pdf = PDF::LoadView('htmlPdf', compact('commandes','qte','pxht','produit'));
+            // download pdf file
+            return $pdf->stream('facture.pdf');
+
     }
 
 }
