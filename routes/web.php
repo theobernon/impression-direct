@@ -147,4 +147,9 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
    Route::get('/export', [\App\Http\Controllers\ExportController::class, 'index'])->name('export');
    Route::post('/export/download', [\App\Http\Controllers\ExportController::class, 'download'])->name('export.download');
    Route::post('/export/send', [\App\Http\Controllers\MailController::class, 'sendExport'])->name('export.send');
+   #---- Export Compta ----#
+
+    #--- Routes Envoi mail ---#
+    Route::get('/email', [\App\Http\Controllers\MailController::class, 'index'])->name('mail.index');
+    #--- Routes Envoi mail ---#
 });

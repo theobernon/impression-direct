@@ -311,6 +311,11 @@ return [
             'url'  => '/export',
             'icon' => 'fas fa-file-export'
         ],
+        [
+            'text' => 'E-mail',
+            'url'  => '/email',
+            'icon' => 'fas fa-paper-plane'
+        ],
 
     ],
 

@@ -70,7 +70,7 @@
                     <x-check :value="$commande->expediee" url="{{route('commande.expedierCommande',['noCommande'=>$commande->noCommande])}}"></x-check>
                 </td>
                 <td>
-                    <x-commande.button-facture :value="$commande"></x-commande.button-facture>
+                    <!--<x-commande.button-facture :value="$commande"></x-commande.button-facture>-->
                 </td>
                 <td>
                     <x-check :value="$commande->envoyee" url="/mail/mailFacture"></x-check>
