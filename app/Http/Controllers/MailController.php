@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MailSender;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
@@ -31,6 +32,39 @@ class MailController extends Controller
         );
 
         return view('mail.index', ['email'=>$email]);
+    }
+
+    public function emailSend(Request $request)
+    {
+        $email = array(
+            array('administration@impressiondirect.fr','administration'),
+            array('commande@impressiondirect.fr','commande'),
+            array('comptabilite@impressiondirect.fr','comptabilite'),
+            array('contact@impressiondirect.fr','contact'),
+            array('description@impressiondirect.fr','description'),
+            array('devis@impressiondirect.fr','devis'),
+            array('echantillon@impressiondirect.fr','echantillon'),
+            array('expedition@impressiondirect.fr','expedition'),
+            array('facturation@impressiondirect.fr','facturation'),
+            array('fichier@impressiondirect.fr','fichier'),
+            array('','-----------------'),
+
+            array('g.chaudet@impressiondirect.fr','g.chaudet'),
+            array('jc.rambaud@impressiondirect.fr','jc.rambaud'),
+            array('m.maupetit@impressiondirect.fr','m.maupetit')
+        );
+
+        $data['email'] = $request->destinataire;
+        $data['subject'] = $request->sujet;
+        $data['body_message'] = $request->message;
+        Mail::to($data['email'])->send(new MailSender($data));
+//        Mail::send('mail.send',$data, function ($message)use ($data){
+//            $message->to($data['email'],$data['email'])
+//                ->subject($data['subject']);
+//            $message->from('neyufx3@gmail.com', 'Impression Direct');
+//        });
+
+        return redirect(route('mail.index'))->with('success', 'Email envoyé avec succés');
     }
 
     public function sendExport(Request $request)

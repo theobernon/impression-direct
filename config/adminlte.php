@@ -269,11 +269,6 @@ return [
                     'url'  => 'commandes/facturees',
                     'icon' => 'fas fa-fw fa-file-pdf'
                 ],
-                [
-                    'text' => 'Commandes archivées',
-                    'url'  => 'commandes/archivees',
-                    'icon' => 'fas fa-archive'
-                ],
             ],
         ],
         [
@@ -316,7 +311,11 @@ return [
             'url'  => '/email',
             'icon' => 'fas fa-paper-plane'
         ],
-
+        [
+            'text' => 'Déconnexion',
+            'url'  => '/disconnect',
+            'icon' => 'fas fa-sign-out-alt'
+        ],
     ],
 
     /*

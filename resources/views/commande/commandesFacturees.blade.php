@@ -40,7 +40,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($commandes as $commande)
+                @foreach($commandes->commandes as $commande)
                     <tr>
                         <td>{{$commande->noCommande}}</td>
                         <td>{{$commande->entCli}}</td>
@@ -53,6 +53,9 @@
                 @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-end mr-2">
+            {{($pagination->links('pagination::bootstrap-4'))}} {{--Pagination Links--}}
         </div>
     </div>
 @stop

@@ -1,5 +1,5 @@
 <div class="{{$class}}">
-<div class="card card-danger card-outline">
+<div class="card card-danger card-outline mb-0">
     <div class="card-header d-flex justify-content-center">
         <h4>{{$title}}</h4>
     </div>

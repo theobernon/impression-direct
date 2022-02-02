@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\Facade as PDF;
 use App\Models\Commandes;
 use Carbon\Carbon;
 use GuzzleHttp\Psr7\Response;
@@ -109,31 +108,82 @@ class CommandeController extends Controller
         return view('commande.detailCommandes', ['commande'=>$commande]);
     }
 
-    public function clientAValider()
+    public function clientAValider(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
         //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/clientAValider'));
-        return view('commande.commandesClient', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/clientAValider?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesClient', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
-    public function commandesAValider()
+    public function clientAValiderSearch(Request  $request)
     {
-        /** GET commandes FROM API */
-        /** @var Response $clientValider */
-        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aValider'));
-        return view('commande.commandesAValider', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/clientAValider/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesClient', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
-    public function commandeAExpedier()
+    public function commandesAValider(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
         //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aExpedier'));
-        return view('commande.commandesAExpedier', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aValider?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesAValider', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function commandesAValiderSearch(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/aValider/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesAValider', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function commandeAExpedier(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aExpedier?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesAExpedier', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function aExpedierSearch(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/aExpedier/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesAExpedier', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
     public function validerClient(Request $request)
@@ -154,30 +204,83 @@ class CommandeController extends Controller
         return redirect(route('commande.index'))->with('success', 'Commande validé');
     }
 
-    public function commandeAFacturer()
+    public function commandeAFacturer(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
         //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aFacturer'));
-        return view('commande.commandesAFacturer', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aFacturer?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesAFacturer', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
-    public function commandeAEnvoyer()
+    public function aFacturerSearch(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
         //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aEnvoyer'));
-        return view('commande.commandesAEnvoyer', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/aFacturer/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesAFacturer', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
-    public function commandeImpayes()
+    public function commandeAEnvoyer(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aPayer'));
-        return view('commande.commandesImpayes', ['commandes' => $commandes]);
+        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aEnvoyer?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesAEnvoyer', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function aEnvoyerSearch(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        //$commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/'));
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/aEnvoyer/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesAEnvoyer', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function commandeImpayes(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/aPayer?page=' . $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+        ]);
+        return view('commande.commandesImpayes', ['commandes' => $commandes, 'pagination' => $pagination]);
+    }
+
+    public function impayeeSearch(Request $request)
+    {
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/aPayer/search?page=' . $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesImpayes', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
 
@@ -238,25 +341,30 @@ class CommandeController extends Controller
     }
 
 
-    public function commandesFacturees()
+    public function commandesFacturees(Request $request)
     {
         /** GET commandes FROM API */
         /** @var Response $clientValider */
-        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee/'));
-        return view('commande.commandesFacturees', ['commandes' => $commandes]);
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee?page='. $request->page));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesFacturees', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
     public function factureeSearch(Request $request)
     {
-        if (isset($request->q))
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/facturee/search/', [
-                'search'=>$request->q,
-            ]));
-        }else{
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee/'));
-        }
-        return view('commande.commandesFacturees', ['commandes' => $commandes]);
+        /** GET commandes FROM API */
+        /** @var Response $clientValider */
+        $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/facturee/search?page='. $request->page, [
+            'search'=>$request->q
+        ]));
+        $pagination = new LengthAwarePaginator($commandes, $commandes->total, $commandes->perpage,$commandes->current_page,[
+            'path' => $request->url(),
+            'query' => $request->query()
+        ]);
+        return view('commande.commandesFacturees', ['commandes' => $commandes, 'pagination' => $pagination]);
     }
 
     public function showFacture(Request $request)
@@ -264,9 +372,9 @@ class CommandeController extends Controller
         /** GET client FROM API */
         /** @var Response $clients */
         return view('facture',[
-        'commande' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/'.$request->noCommande))[0],
-        'devis' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/commande/'.$request->noCommande)),
-        'lignes' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis)),
+            'commande' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/'.$request->noCommande))[0],
+            'devis' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/commande/'.$request->noCommande)),
+            'lignes' => json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/ligneDevis/devis/'.$request->noDevis)),
 
         ]);
         //dd($request->refClient);
@@ -279,53 +387,6 @@ class CommandeController extends Controller
         /** @var Response $genereFacture */
         $genereFacture = Http::withToken(session('key'))->patch(env('API_PATH') . '/commandes/nFact/'.$request->noCommande);
         return view('commande.index');
-    }
-
-    public function archivees(Request $request)
-    {
-        if (isset($request->search))
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/archivees/search/', [
-                'search'=>$request->search,
-            ]));
-        }
-        else{
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/archivees/'));
-        }
-
-        return view('commande.commandesArchivees', ['commandes'=>$commandes]);
-    }
-
-    public function archiveSearch(Request $request)
-    {
-        if (isset($request->q))
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->post(env('API_PATH') . '/commandes/archivees/search/', [
-                'search'=>$request->q,
-            ]));
-        }
-        else{
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH') . '/commandes/archivees/'));
-        }
-
-        return view('commande.commandesArchivees', ['commandes'=>$commandes]);
-    }
-
-
-        public function htmlPdf(Request $request)
-        {
-            $commandes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commandes/getFact/'.$request->noCommande));
-            
-            $explode = explode(',', $commandes->produits);
-            $produit = str_replace("Produit : ","",$explode[0]);
-            $qte = str_replace("Quantité :","",$explode[1]);
-            $pxht = str_replace(["Prix :","? HT -"],"",$explode[2]);
-            // selecting PDF view
-            view()->share('commandes',$commandes);
-            $pdf = PDF::LoadView('htmlPdf', compact('commandes','qte','pxht','produit'));
-            // download pdf file
-            return $pdf->stream('facture.pdf');
-
     }
 
 }

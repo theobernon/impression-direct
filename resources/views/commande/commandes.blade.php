@@ -11,7 +11,7 @@
 @stop
 
 @section('content')
-    <div class="card">
+    <div class="card mb-0">
         <div class="card-header">
             <h3 class="card-title">
                 Liste des devis
@@ -88,14 +88,9 @@
         @endforeach
         </tbody>
     </table>
-        <div class="d-flex justify-content-end mr-2">
+        <div class="d-flex justify-content-end mr-2 mb-0">
             {{($pagination->links('pagination::bootstrap-4'))}} {{--Pagination Links--}}
         </div>
 </div>
 
 @stop
-
-@section('js')
-    @parent
-
-@endsection

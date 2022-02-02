@@ -3,21 +3,17 @@
 @section('title', 'ImpressionDirect')
 
 @section('content_header')
-
-    <head>
     <link href="{{asset('style.css')}}" rel="stylesheet">
-</head>
+    <h1 class="m-0 text-dark" style="text-align: center">Ajout de ligne pour le devis n°{{$devis->noDevis}}</h1>
+@stop
 
-<body>
-@foreach($devis as $devi)
-<h1 class="m-0 text-dark" style="text-align: center">Ajout de ligne pour le devis n°{{$devi->noDevis}}</h1>
-@endforeach
+@section('content')
     <a style="margin-right: auto;border-color: red" href="{{url()->previous()}}" class="btn">RETOUR</a>
     <div style="display: flex">
         <form method="POST" action="{{ route('ligneDevis.create')}}">
         @csrf
-            <x-form.group :value="$devis[0]->noDevis" label="noDevis" type="hidden" id="noDevis" required=""></x-form.group>
-            <x-form.card title="Le devis n°{{$devis[0]->noDevis}} Référence Client : {{$devis[0]->refClient}}" class="mt-4">
+            <x-form.group :value="$devis->noDevis" label="" type="hidden" id="noDevis" required=""></x-form.group>
+            <x-form.card title="Le devis n°{{$devis->noDevis}} Référence Client : {{$devis->refClient}}" class="mt-4">
                 <row class="col-sm-10 row">
                 <x-form.group value="" label="Produit" type="" id="Produit" required="required"></x-form.group>
                 <x-form.group value="" label="Quantité" type="number" id="Qte" required="required"></x-form.group>

@@ -21,9 +21,8 @@
         <form method="POST" action="{{ route('commande.create')}}">
             @csrf
     <a style="margin-right: auto;border-color: red" href="{{url()->previous()}}" class="btn">RETOUR</a>
-
-    <x-form.input label="" id="" value="{{$devis[0]->refClient}}" name="refClient" type="hidden" step="" oninput="" readonly="" required="" ></x-form.input>
-    <x-form.card class="mt-4" title="Commande à partir du devis n°{{$devis[0]->noDevis}} pour le client référence n°{{$devis[0]->refClient}}">
+    <x-form.input label="" id="" value="{{$devis->refClient}}" name="refClient" type="hidden" step="" oninput="" readonly="" required="" ></x-form.input>
+    <x-form.card class="mt-4" title="Commande à partir du devis n°{{$devis->noDevis}} pour le client référence n°{{$devis->refClient}}">
         <x-form.input label="Date de la commande" id="" value="{{date('Y-m-d')}}" name="dateCommande" type="date" step="" oninput="" readonly="" required="" ></x-form.input>
         <x-form.input label="Entreprise du client" id="" value="{{$clients[0]->societe}}" name="entCli" type="" step="" oninput="" readonly="" required="" ></x-form.input>
         <x-form.input label="Adresse du client" id="" value="{{$clients[0]->factAdr1}}" name="ad1" type="" step="" oninput="" readonly="" required="" ></x-form.input>
@@ -52,12 +51,12 @@
         <x-form.card-header title="Information complémentaire"></x-form.card-header>
         <x-form.textarea label="Commentaire" value="" name="commentaire">@foreach($lignes as $ligne)Commentaire:  {{$ligne->ComEnt}} , {{$ligne->ComCli}}
 @endforeach</x-form.textarea>
-        <x-form.input-search temp="" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
+        <x-form.input-search value="" temp="" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
         </x-form.input-search>
         <x-devis.input-search label="Référence du transporteur" name="refTransporteurs" :datas="$fournisseurs" arg="appellation" arg2="reference"></x-devis.input-search>
         <x-form.select temp="" name="expertise" label="Expertise" :datas="['NON','OUI']"></x-form.select>
         <x-form.input label="Prix transporteur" id="" value="" name="pxTransporteur" type="" step="" oninput="" readonly="" required="" ></x-form.input>
-        <x-form.input label="N° du devis de la commande" id="" :value="$devis[0]->noDevis" name="noDevisCommande" type="number" step="" oninput="" readonly="" required="" ></x-form.input>
+        <x-form.input label="N° du devis de la commande" id="" :value="$devis->noDevis" name="noDevisCommande" type="number" step="" oninput="" readonly="" required="" ></x-form.input>
         <x-form.input-commission label="Commission de la commande" name="id_commission" :datas="$commissions"></x-form.input-commission>
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-danger float-right">Ajouter la commande</button>

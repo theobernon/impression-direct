@@ -20,6 +20,7 @@
                     <x-form.input-search temp="{{$commande->transporteurClient}}" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
                     </x-form.input-search>
                     <x-form.textarea label="Produit :" value="Produit.." name="product">{{$commande->produits}}</x-form.textarea>
+                    <x-commande.modal></x-commande.modal>
                     <x-form.input label="Date d'expédition" id="" value="{{$commande->dateExpd}}" name="dateExpd" type="date" step="" oninput="" readonly="" required="" ></x-form.input>
                     <x-form.card-header title="Adresse de facturation"></x-form.card-header>
                     <x-form.input label="Nom" id="" value="{{$commande->entCli}}" name="entCli" type="" step="" oninput="" readonly="" required="" ></x-form.input>
@@ -79,10 +80,46 @@
         let tva = document.getElementById('TVA');
         let prixTTC = document.getElementById('PrixTTC');
         prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)-parseInt(reduction.value));
+        //tva.value = parseInt(prixHT.value)*20/100;
         let total = parseFloat(prixHT.value);
+        prixTTC.value = parseFloat(total)*(1+parseInt(tva.value)/100);
         function calc() {
-            prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)-parseInt(reduction.value));
+            prixHT.value = parseInt(total)+parseInt(prixTransports.value)-parseInt(reduction.value)+parseInt(prixProduits.value)+parseInt(prixOptions.value);
+            //tva.value = parseFloat(prixHT.value) * 20/100;
             prixTTC.value = (parseInt(prixHT.value)*(1+parseInt(tva.value)/100)).toFixed(2);
+        }
+    </script>
+    <script type="text/javascript">
+        function addProduct()
+        {
+            var Produit = document.getElementById('Produit');
+            var Qte = document.getElementById('Qte');
+            var DimPapier = document.getElementById('DimPapier');
+            var Options = document.getElementById('Options');
+            var Prix = document.getElementById('Prix');
+            var couleurPapier = document.getElementById('couleurPapier');
+            var TypePapier = document.getElementById('TypePapier');
+            var Finitions = document.getElementById('Finitions');
+            var textarea = document.getElementById('product');
+            var msg = document.getElementById('modal-msg');
+            let prixProduits = document.getElementById('PrixProduits');
+
+            var values = [Produit.value,TypePapier.value,couleurPapier.value,DimPapier.value,Options.value,Finitions.value,Qte.value,Prix.value]
+
+            if (values[0] != '' && values[1] != '' && values[2] != '' && values[3] != '' && values[4] != '' && values[5] != '' && values[6] != '' && values[7] != '') // si tout les champs sont remplis
+            {
+                if(textarea.innerHTML.includes("Produit")){ // Si il y a du texte dans le textarea
+                    var ligne = '\n'; // on saute une ligne
+                }else{
+                    var ligne = ''; // sinon rien
+                }
+                textarea.value += ligne+values[0]+','+values[1]+','+values[3]+','+values[4]+','+values[5]+'; Qte : '+values[6]+'; Prix(HT) :'+values[7]+'\n'; // On ajoute les valeur renseigner dans le textarea
+                $('#myModal').modal('hide'); // On ferme le modal
+                msg.innerHTML = "";
+                prixProduits.value = parseInt(prixProduits.value) + parseInt(values[7]); // on ajoute le prix total des produits (HT)
+            }else{
+                msg.innerHTML = "Veuillez remplir tous les champs." // si tous les champs ne sont pas rempli
+            }
         }
     </script>
 @endsection

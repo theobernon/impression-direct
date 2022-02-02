@@ -15,11 +15,12 @@
             @csrf
             <div class="d-flex">
                 <x-form.card title="Information commande" class="w-100">
-                    <x-form.input-search temp="" label="Référence du client" :datas="$clients->clients" arg="refClient" name="refClient">
+                    <x-form.input-search value="" temp="" label="Référence du client" :datas="$clients->clients" arg="refClient" name="refClient">
                     </x-form.input-search>
-                    <x-form.input-search temp="" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
+                    <x-form.input-search value="" temp="" label="Transporteur" :datas="$fournisseurs" arg="appellation" name="transporteurClient">
                     </x-form.input-search>
                     <x-form.textarea label="Produit :" value="Produit.." name="product"></x-form.textarea>
+                    <x-commande.modal></x-commande.modal>
                     <x-form.input label="Date d'expédition" id="" value="" name="dateExpd" type="date" step="" oninput="" readonly="" required="" ></x-form.input>
                     <x-form.card-header title="Adresse de facturation"></x-form.card-header>
                     <x-form.input label="Nom" id="" value="" name="entCli" type="" step="" oninput="" readonly="" required="" ></x-form.input>
@@ -78,14 +79,42 @@
         var prixHT = document.getElementById('PrixHT');
         let tva = document.getElementById('TVA');
         let prixTTC = document.getElementById('PrixTTC');
-        prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)+parseInt(reduction.value));
+        prixHT.value = (parseInt(prixProduits.value)+parseInt(prixOptions.value)+parseInt(prixTransports.value)-parseInt(reduction.value));
         //tva.value = parseInt(prixHT.value)*20/100;
         let total = parseFloat(prixHT.value);
         prixTTC.value = parseFloat(total)*(1+parseInt(tva.value)/100);
         function calc() {
-            prixHT.value = parseInt(total)+parseInt(prixTransports.value)+parseInt(reduction.value)+parseInt(prixProduits.value)+parseInt(prixOptions.value);
+            prixHT.value = parseInt(total)+parseInt(prixTransports.value)-parseInt(reduction.value)+parseInt(prixProduits.value)+parseInt(prixOptions.value);
             //tva.value = parseFloat(prixHT.value) * 20/100;
             prixTTC.value = (parseInt(prixHT.value)*(1+parseInt(tva.value)/100)).toFixed(2);
+        }
+    </script>
+    <script type="text/javascript">
+        function addProduct()
+        {
+            var Produit = document.getElementById('Produit');
+            var Qte = document.getElementById('Qte');
+            var DimPapier = document.getElementById('DimPapier');
+            var Options = document.getElementById('Options');
+            var Prix = document.getElementById('Prix');
+            var couleurPapier = document.getElementById('couleurPapier');
+            var TypePapier = document.getElementById('TypePapier');
+            var Finitions = document.getElementById('Finitions');
+            var textarea = document.getElementById('product');
+            var msg = document.getElementById('modal-msg');
+            let prixProduits = document.getElementById('PrixProduits');
+
+            var values = [Produit.value,TypePapier.value,couleurPapier.value,DimPapier.value,Options.value,Finitions.value,Qte.value,Prix.value]
+
+            if (values[0] != '' && values[1] != '' && values[2] != '' && values[3] != '' && values[4] != '' && values[5] != '' && values[6] != '' && values[7] != '')
+            {
+                textarea.value += values[0]+','+values[1]+','+values[3]+','+values[4]+','+values[5]+'; Qte : '+values[6]+'; Prix(HT) :'+values[7]+'\n';
+                $('#myModal').modal('hide');
+                msg.innerHTML = "";
+                prixProduits.value = parseInt(prixProduits.value) + parseInt(values[7]);
+            }else{
+                msg.innerHTML = "Veuillez remplir tous les champs."
+            }
         }
     </script>
 @endsection
