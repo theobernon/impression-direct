@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class Back extends Component
 {
+    public $route;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($route)
     {
-        //
+        $this->route = $route;
     }
 
     /**

@@ -4,6 +4,7 @@
 
 @section('content_header')
     {{--    <h1 class="m-0 text-dark">{{$clients['nom']}}}</h1>--}}
+    <x-buttons.back route="{{route('client.index')}}"></x-buttons.back>
 @stop
 
 @section('content')

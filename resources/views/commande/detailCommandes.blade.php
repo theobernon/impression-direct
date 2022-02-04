@@ -11,7 +11,7 @@
 @section('content')
     <div class="mb-3">
         <h1 style="text-align: center" class="m-0 text-dark">Details de la commande n° {{$commande->noCommande}}</h1>
-        <x-buttons.back></x-buttons.back>
+        <x-buttons.back route="{{route('commande.index')}}"></x-buttons.back>
     </div>
     <row class="d-flex">
     <x-form.card title="Information sur la commande" class="col-md-6">

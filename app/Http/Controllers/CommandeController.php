@@ -59,8 +59,12 @@ class CommandeController extends Controller
         $clients = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/client/'));
         $fournisseurs = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/fournisseur/'));
         $commissions = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/commission/'));
+        $devis = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/' . $commande->noDevis));
+        $lignes = json_decode(Http::withToken(session('key'))->get(env('API_PATH').'/devis/' . $commande->noDevis . '/ligne'));
         return view('commande.editcommande',['commande'=>$commande])
-            ->with('clients', $clients)->with('fournisseurs',$fournisseurs)->with('commissions',$commissions);
+            ->with('clients', $clients)->with('fournisseurs',$fournisseurs)
+            ->with('commissions',$commissions)->with('devis', $devis)
+            ->with('lignes',$lignes);
     }
 
     public function update(Request $request)

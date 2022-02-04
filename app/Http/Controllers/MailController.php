@@ -58,11 +58,6 @@ class MailController extends Controller
         $data['subject'] = $request->sujet;
         $data['body_message'] = $request->message;
         Mail::to($data['email'])->send(new MailSender($data));
-//        Mail::send('mail.send',$data, function ($message)use ($data){
-//            $message->to($data['email'],$data['email'])
-//                ->subject($data['subject']);
-//            $message->from('neyufx3@gmail.com', 'Impression Direct');
-//        });
 
         return redirect(route('mail.index'))->with('success', 'Email envoyé avec succés');
     }
@@ -70,7 +65,7 @@ class MailController extends Controller
     public function sendExport(Request $request)
     {
         $file = Excel::raw(new ComptaExport($request), \Maatwebsite\Excel\Excel::CSV);
-        $data['email'] = "neyufx@gmail.com";
+        $data['email'] = "mail destinataire"; // Remplacer par le mail du destinataire
         $data['subject'] = "Export Compta";
         $data['body_message'] = "Veuillez trouvez en pièce jointe l'export des données pour la comptabilité";
         $data['file_name'] = "Document_compta.csv";
@@ -80,7 +75,7 @@ class MailController extends Controller
             $message->to($data['email'],$data['email'])
                 ->subject($data['subject'])
                 ->attachData($file, $data['file_name']);
-            $message->from('neyufx3@gmail.com', 'Impression Direct');
+            $message->from('mail expediteur', 'Impression Direct'); // remplacer par le mail de l'expéditeur
         });
         if( count(Mail::failures()) > 0 ) {
 

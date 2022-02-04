@@ -79,7 +79,7 @@
                     <x-check :value="$commande->envoiSuivi" url=""></x-check>
                 </td>
                 <td>
-                    <x-buttons.show id="{{$commande->noCommande}}" route="{{route('commandes.detail',$commande->noCommande)}}"></x-buttons.show>
+                    <x-buttons.show id="{{$commande->noCommande}}" route="{{route('commandes.detail',['noCommande'=>$commande->noCommande])}}"></x-buttons.show>
                 </td>
                 <td>
                     <x-buttons.delete class="" route="{{route('commande.delete',['noCommande'=>$commande->noCommande])}}"></x-buttons.delete>

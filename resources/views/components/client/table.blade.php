@@ -49,7 +49,7 @@
                     <x-buttons.show id="{{$client->refClient}}" route="{{route('client.detail',$client->refClient)}}"></x-buttons.show>
                 </td>
                 <td>
-                    <x-buttons.delete id="{{$client->refClient}}" class="" route="{{route('client.delete',$client->refClient)}}"></x-buttons.delete>
+                    <x-buttons.delete id="{{$client->refClient}}" class="" route="{{route('client.delete',['refClient'=>$client->refClient])}}"></x-buttons.delete>
                 </td>
             </tr>
         @endforeach

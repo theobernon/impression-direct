@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <x-form.input type="" step="" onchange="" oninput="" id="" label="E-mail" name="emailClient" value="{{$client[0]->email ?? ''}}" readonly="" required=""></x-form.input>
                     <x-form.input type="" step="" onchange="" oninput="" id="" label="Société" name="societeClient" value="{{$client[0]->societe ?? ''}}" readonly="" required=""></x-form.input>
-                    <x-form.input type="" step="" onchange="" oninput="" id="" label="Type de client" name="typeClient" value="{{$client[0]->typeClient ?? ''}}" readonly="" required=""></x-form.input>
+                    <x-form.input type="number" step="" onchange="" oninput="" id="" label="Type de client" name="typeClient" value="{{$client[0]->typeClient ?? ''}}" readonly="" required="required"></x-form.input>
                     <x-form.input type="" step="" onchange="" oninput="" id="" label="Fonction" name="fonction" value="{{$client[0]->fonction ?? ''}}" readonly="" required=""></x-form.input>
                     <x-form.input type="" step="" onchange="" oninput="" id="" label="Commercial" name="id_teleprospecteur" value="{{$client[0]->id_teleprospecteur ?? ''}}" readonly="" required=""></x-form.input>
                 </div>

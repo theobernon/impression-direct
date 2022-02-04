@@ -1,1 +1,1 @@
-<input type="submit" class="btn btn-primary float-right">
+<input type="submit" class="btn btn-primary float-right"/>

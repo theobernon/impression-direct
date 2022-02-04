@@ -1,1 +1,1 @@
-<a style="border-color: red" href="{{url()->previous()}}" class="btn">RETOUR</a>
+<a style="border-color: red" href="{{$route}}" class="btn">RETOUR</a>

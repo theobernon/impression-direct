@@ -56,7 +56,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandes/search', [CommandeController::class, 'search'])->name('commande.search');
     Route::get('commande/{noCommande}/delete',[CommandeController::class,'delete'])->name('commande.delete');
     Route::delete('commande/{noCommande}/destroy', [CommandeController::class, 'destroy'])->name('commande.destroy');
-    Route::get('/comm andes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
+    Route::get('/commandes/edit', [CommandeController::class, 'edit'])->name('commande.edit');
     Route::get('/commandes/formulaire',[CommandeController::class,'showadd'])->name('commande.ajouter');
     Route::post('/commandes/ajouter', [CommandeController::class, 'create'])->name('commande.create');
 
@@ -66,6 +66,7 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::get('/commandesAEnvoyer', function () {
         return view('/commande/commandesAEnvoyer');
     });
+
     Route::get('/commandes/commandesClient', [CommandeController::class, 'clientAValider'])->name('commande.clientValider');
     Route::get('/commandes/commandesClient/search', [CommandeController::class, 'clientAValiderSearch'])->name('commande.clientValider.search');
     Route::get('/commandes/commandesAValider', [CommandeController::class, 'commandesAValider'])->name('commande.commandeAValidee');
@@ -95,8 +96,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
 #---- Routes clients ----#
     Route::get('/client', [ClientController::class, 'index'])->name('client.index');
     Route::get('/client/search', [ClientController::class, 'search'])->name('client.search');
-    Route::post('/client/destroy/{refClient}', [ClientController::class, 'delete'])->name('client.delete');
     Route::get('/client/detail/{refClient}', [ClientController::class, 'show'])->name('client.detail');
+    Route::post('/client/delete/{refClient}', [ClientController::class, 'delete'])->name('client.delete');
     Route::post('/client/edit/{refClient}', [ClientController::class, 'edit'])->name('client.edit');
     Route::get('/client/formulaire',[ClientController::class,'showadd'])->name('client.ajouter');
     Route::post('/client/ajouter', [ClientController::class, 'create'])->name('client.create');
@@ -104,8 +105,8 @@ Route::middleware(\App\Http\Middleware\EnsureTokenIsValid::class)->group(functio
     Route::post('/client/edit/{refClient}/update', [ClientController::class, 'update'])->name('client.update');
     Route::get('/commandes/client/{refClient}',[ClientController::class,'showCommande'])->name('client.commande');
 
-
 #---- Routes devis ----#
+
     Route::get('/devis', [DevisController::class, 'index'])->name('devis.index');
     Route::get('/devis/search', [DevisController::class, 'search'])->name('devis.search');
     Route::get('/devis/edit/{noDevis}', [DevisController::class, 'edit'])->name('devis.edit');

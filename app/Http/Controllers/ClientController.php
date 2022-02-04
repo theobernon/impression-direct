@@ -44,7 +44,7 @@ class ClientController extends Controller
 //        //dd($request->id_teleprospecteur);
         $clients = Http::withToken(session('key'))->post(env('API_PATH') . '/client/create', [
             'email' => $request->emailClient,
-            'typeClient' => '1',
+            'typeClient' => $request->typeClient,
             'nom' => $request->nomClient,
             'prenom' => $request->prenomClient,
             'societe' => $request->societeClient,
